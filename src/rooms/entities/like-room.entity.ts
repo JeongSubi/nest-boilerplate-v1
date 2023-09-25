@@ -1,7 +1,7 @@
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { CoreEntity } from '../../common/entities/core.entity';
-import { User } from '../../users/entities/user.entity';
-import { Room } from './room.entity';
+import { User }       from '@src/entities/user.entity';
+import { Room }       from './room.entity';
 
 @Entity()
 export class LikeRoom extends CoreEntity {

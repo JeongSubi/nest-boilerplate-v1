@@ -5,7 +5,7 @@ import { Reservation } from '@src/reservations/entities/reservation.entity';
 import { ReservationsService } from '@src/reservations/reservations.service';
 import { GqlAuthGuard } from '@src/auth/guards/gql-auth.guard';
 import { AuthUser } from '@common/decorators/auth-user.decorator';
-import { User } from '@src/users/entities/user.entity';
+import { User }     from '@src/entities/user.entity';
 
 @Resolver(() => Reservation)
 export class ReservationsResolver {

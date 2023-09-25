@@ -65,16 +65,10 @@ export class RoomResultWithHasNext {
   @Field((type) => Int)
   totalCount: number;
 
-  static toDto(
-    rooms: Room[],
-    inputPage: number,
-    totalCount: number,
-  ): RoomResultWithHasNext {
+  static toDto(rooms: Room[], inputPage: number, totalCount: number): RoomResultWithHasNext {
     const results = rooms.map((el) => RoomResult.toDto(el));
 
-    const pageCount = Math.ceil(
-      totalCount / (rooms.length === 0 ? totalCount : rooms.length),
-    );
+    const pageCount = Math.ceil(totalCount / (rooms.length === 0 ? totalCount : rooms.length));
 
     return Builder(RoomResultWithHasNext)
       .rooms(results)

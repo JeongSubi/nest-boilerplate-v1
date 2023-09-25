@@ -20,10 +20,7 @@ export class RoomRepository extends Repository<Room> {
     ]);
   }
 
-  async mappingBuilderById(
-    builder: SelectQueryBuilder<Room>,
-    roomInput: RoomInput,
-  ) {
+  async mappingBuilderById(builder: SelectQueryBuilder<Room>, roomInput: RoomInput) {
     if (roomInput.roomId) {
       builder.andWhere('room.id = :roomId', {
         roomId: roomInput.roomId,
@@ -32,10 +29,7 @@ export class RoomRepository extends Repository<Room> {
     return builder;
   }
 
-  async mappingBuilderByInput(
-    builder: SelectQueryBuilder<Room>,
-    roomsInput: RoomsInput,
-  ) {
+  async mappingBuilderByInput(builder: SelectQueryBuilder<Room>, roomsInput: RoomsInput) {
     if (roomsInput.roomName) {
       builder.andWhere('room.roomName LIKE :roomName', {
         roomName: `%${roomsInput.roomName.trim()}%`,
@@ -44,11 +38,7 @@ export class RoomRepository extends Repository<Room> {
     return builder;
   }
 
-  mappingBuilderBySkipAndTake(
-    builder: SelectQueryBuilder<Room>,
-    page: number,
-    size: number,
-  ) {
+  mappingBuilderBySkipAndTake(builder: SelectQueryBuilder<Room>, page: number, size: number) {
     return builder.skip((page - 1) * size).take(size);
   }
 
