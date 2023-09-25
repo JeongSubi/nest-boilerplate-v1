@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersService } from './services/users.service';
-import { UsersResolver } from './resolvers/users.resolver';
-import { UserRepository } from './repositories/user-repository';
-import { CustomTypeOrmModule } from '../common/custom.typeorm.module';
-import { User } from './entities/user.entity';
 import { PassportModule } from '@nestjs/passport';
+import { UserRepository } from '@src/users/repositories/user-repository';
+import { User } from '@src/users/entities/user.entity';
+import { UsersResolver } from '@src/users/resolvers/users.resolver';
+import { UsersService } from '@src/users/services/users.service';
+import { CustomTypeOrmModule } from '@common/custom.typeorm.module';
 
 @Module({
   imports: [

@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { RoomRepository } from '@src/rooms/repositories/room-repository';
+import { ReservationRepository } from '@src/reservations/repositories/reservation-repository';
+import { UtilService } from '@src/util/util.service';
 import {
   CreateReservationInput,
   CreateReservationOutput,
-} from './dto/create-reservation.input';
-import { NotFoundError } from '../common/error/NotFoundError';
-import { ErrorCode } from '../common/error/errorCodeEnum/ErrorCodeEnum';
-import { RoomRepository } from '../rooms/repositories/room-repository';
-import { Reservation, Status } from './entities/reservation.entity';
-import { ReservationRepository } from './repositories/reservation-repository';
-import { UtilService } from '../util/util.service';
+} from '@src/reservations/dto/create-reservation.input';
+import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { Reservation, Status } from '@src/reservations/entities/reservation.entity';
+import { NotFoundError } from '@common/error/NotFoundError';
 
 @Injectable()
 export class ReservationsService {
@@ -22,13 +22,9 @@ export class ReservationsService {
     createReservationInput: CreateReservationInput,
     authUser,
   ): Promise<CreateReservationOutput> {
-    await this.utilService.setReservationTime(
-      createReservationInput.reservationDate,
-    );
+    await this.utilService.setReservationTime(createReservationInput.reservationDate);
 
-    const room = await this.roomRepository.findRoomById(
-      createReservationInput.roomId,
-    );
+    const room = await this.roomRepository.findRoomById(createReservationInput.roomId);
 
     if (!room) {
       throw new NotFoundError('room not found', ErrorCode.NOT_FOUND);

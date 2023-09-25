@@ -1,13 +1,9 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { ErrorCode } from 'src/common/error/errorCodeEnum/ErrorCodeEnum';
-import { UserRepository } from '../../users/repositories/user-repository';
-import { User } from '../../users/entities/user.entity';
+import { UserRepository } from '@src/users/repositories/user-repository';
+import { User } from '@src/users/entities/user.entity';
+import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -28,10 +24,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
     const passwordCorrect = await user.checkPassword(password);
     if (!passwordCorrect) {
-      throw new UnauthorizedException(
-        'wrong password',
-        ErrorCode.INVALID_PASSWORD,
-      );
+      throw new UnauthorizedException('wrong password', ErrorCode.INVALID_PASSWORD);
     }
 
     return user;

@@ -9,8 +9,7 @@ export class LoginInput {
 
   @Field((type) => String)
   @Matches(/((?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9가-힣]).{8,16})/, {
-    message:
-      '8~16 characters consisting of letters(a-z), numbers, or special characters.',
+    message: '8~16 characters consisting of letters(a-z), numbers, or special characters.',
   })
   password?: string;
 }

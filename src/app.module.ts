@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
-import { CommonModule } from './common/common.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
-import { UsersModule } from './users/users.module';
 import { ApolloDriver } from '@nestjs/apollo';
-import { RoomsModule } from './rooms/rooms.module';
-import { AuthModule } from './auth/auth.module';
 import * as Joi from 'joi';
 import { JwtModule } from '@nestjs/jwt';
-import { ReservationsModule } from './reservations/reservations.module';
-import { AppService } from './app.service';
+import { UsersModule } from '@src/users/users.module';
+import { CommonModule } from '@common/common.module';
+import { RoomsModule } from '@src/rooms/rooms.module';
+import { AuthModule } from '@src/auth/auth.module';
+import { ReservationsModule } from '@src/reservations/reservations.module';
+import { AppService } from '@src/app.service';
 
 @Module({
   imports: [
