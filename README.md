@@ -1,9 +1,9 @@
-# NestJS Boilerplate V1(JWT)
-: NestJS Boilerplate with Jwt Auth 
+# NestJS Boilerplate V1(JWT Auth ver.)
+: NestJS Boilerplate with passport, localStrategy
 
 ## tech stack
 ```
-NestJs, Graphql, Typescript, typeORM, PostgreSQL
+NestJs, Typescript, typeORM, PostgreSQL, Graphql, Docker
 ```
 
 ## ERD
@@ -29,10 +29,12 @@ NestJs, Graphql, Typescript, typeORM, PostgreSQL
 ```
 USING YARN (Recommend)
 1. yarn install
+2. docker compose -f ./docker/docker-compose-localhost.yml up -d (localhost environment)
 2. yarn start:dev
 
 USING NPM
 1. npm i OR npm i --legacy-peer-deps
+2. docker compose -f ./docker/docker-compose-localhost.yml up -d (localhost environment)
 2. npm start:dev
 ```
 
