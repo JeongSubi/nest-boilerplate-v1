@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthResolver } from './auth.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from '../users/users.module';
-import { User } from '../users/entities/user.entity';
-import { CustomTypeOrmModule } from '../common/custom.typeorm.module';
-import { UserRepository } from '../users/repositories/user-repository';
 import { PassportModule } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
-import { JwtStrategy } from './passportStrategy/jwt.strategy';
-import { LocalStrategy } from './passportStrategy/local.strategy';
+import { CustomTypeOrmModule } from '@common/custom.typeorm.module';
+import { UserRepository } from '@src/users/repositories/user-repository';
+import { User }           from '@src/entities/user.entity';
+import { UsersModule }    from '@src/users/users.module';
+import { AuthResolver } from '@src/auth/auth.resolver';
+import { AuthService } from '@src/auth/auth.service';
+import { JwtStrategy } from '@src/auth/passportStrategy/jwt.strategy';
+import { LocalStrategy } from '@src/auth/passportStrategy/local.strategy';
 
 @Module({
   imports: [
@@ -18,13 +18,7 @@ import { LocalStrategy } from './passportStrategy/local.strategy';
     UsersModule,
     PassportModule,
   ],
-  providers: [
-    AuthResolver,
-    AuthService,
-    JwtService,
-    JwtStrategy,
-    LocalStrategy,
-  ],
+  providers: [AuthResolver, AuthService, JwtService, JwtStrategy, LocalStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

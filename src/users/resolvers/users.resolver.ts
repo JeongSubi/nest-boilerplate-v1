@@ -1,21 +1,18 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { UsersService } from '../services/users.service';
-import { User } from '../entities/user.entity';
-import { CreateUserInput, CreateUserOutput } from '../dto/create-user.dto';
-import { DeleteUserInput, DeleteUserOutput } from '../dto/delete-user.dto';
+import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../../auth/guards/gql-auth.guard';
-import { AuthUser } from '../../common/decorators/auth-user.decorator';
-import { LocalAuthGuard } from '../../auth/guards/local-auth.guard';
+import { CreateUserInput, CreateUserOutput } from '@src/users/dto/create-user.dto';
+import { UsersService } from '@src/users/services/users.service';
+import { User }         from '@src/entities/user.entity';
+import { GqlAuthGuard } from '@src/auth/guards/gql-auth.guard';
+import { DeleteUserInput, DeleteUserOutput } from '@src/users/dto/delete-user.dto';
+import { AuthUser } from '@common/decorators/auth-user.decorator';
 
 @Resolver(() => User)
 export class UsersResolver {
   constructor(private readonly userService: UsersService) {}
 
   @Mutation((returns) => CreateUserOutput)
-  signUp(
-    @Args('input') createUserInput: CreateUserInput,
-  ): Promise<CreateUserOutput> {
+  signUp(@Args('input') createUserInput: CreateUserInput): Promise<CreateUserOutput> {
     return this.userService.createUser(createUserInput);
   }
 

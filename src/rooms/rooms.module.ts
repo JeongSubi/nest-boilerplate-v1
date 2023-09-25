@@ -10,11 +10,7 @@ import { LikeRoomRepository } from './repositories/like-room-repository';
 
 @Module({
   imports: [
-    CustomTypeOrmModule.forCustomRepository([
-      RoomRepository,
-      UserRepository,
-      LikeRoomRepository,
-    ]),
+    CustomTypeOrmModule.forCustomRepository([RoomRepository, UserRepository, LikeRoomRepository]),
     TypeOrmModule.forFeature([Room]),
   ],
   providers: [RoomsResolver, RoomsService],

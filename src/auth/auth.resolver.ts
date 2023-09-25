@@ -1,14 +1,14 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { AuthService } from './auth.service';
-import { Auth } from './entities/auth.entity';
-import { LoginInput, LoginOutput } from './dto/login.dto';
-import { Input } from 'src/common/args/input.args';
 import { UseGuards } from '@nestjs/common';
-import { GqlJwtAuthGuard } from './guards/gql-jwt-auth.guard';
-import { User } from '../users/entities/user.entity';
-import { AuthUser } from '../common/decorators/auth-user.decorator';
-import { LocalAuthGuard } from './guards/local-auth.guard';
-import { LoginUser } from './decorators/login-user.decorator';
+import { Auth } from '@src/auth/entities/auth.entity';
+import { AuthService } from '@src/auth/auth.service';
+import { LocalAuthGuard } from '@src/auth/guards/local-auth.guard';
+import { Input } from '@common/args/input.args';
+import { LoginInput, LoginOutput } from '@src/auth/dto/login.dto';
+import { LoginUser }       from '@src/auth/decorators/login-user.decorator';
+import { User }            from '@src/entities/user.entity';
+import { GqlJwtAuthGuard } from '@src/auth/guards/gql-jwt-auth.guard';
+import { AuthUser } from '@common/decorators/auth-user.decorator';
 
 @Resolver(() => Auth)
 export class AuthResolver {
@@ -20,7 +20,9 @@ export class AuthResolver {
     return this.authService.login(user.id);
   }
 
-  @Query((returns) => User)
+  @Query((returns) => {
+    return User;
+  })
   @UseGuards(GqlJwtAuthGuard)
   me(@AuthUser() authUser: User) {
     return authUser;

@@ -1,15 +1,8 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { CoreOutput } from '../../common/dtos/output.dto';
-import {
-  IsBoolean,
-  IsEmail,
-  IsEnum,
-  IsString,
-  Matches,
-  ValidateIf,
-} from 'class-validator';
-import { Builder } from 'builder-pattern';
-import { User } from '../entities/user.entity';
+import { IsEmail, IsString, Matches } from 'class-validator';
+import { Builder }    from 'builder-pattern';
+import { User }       from '@src/entities/user.entity';
+import { CoreOutput } from '@common/dtos/output.dto';
 
 @InputType()
 export class CreateUserInput {
@@ -23,8 +16,7 @@ export class CreateUserInput {
 
   @Field((type) => String)
   @Matches(/((?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9가-힣]).{8,16})/, {
-    message:
-      '8~16 characters consisting of letters(a-z), numbers, or special characters.',
+    message: '8~16 characters consisting of letters(a-z), numbers, or special characters.',
   })
   readonly password: string;
 

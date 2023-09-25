@@ -1,23 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import {
-  RoomResult,
-  RoomResultWithHasNext,
-  RoomsInput,
-  RoomsOutput,
-} from './dto/rooms.dto';
+import { RoomResult, RoomResultWithHasNext, RoomsInput, RoomsOutput } from './dto/rooms.dto';
 import { RoomRepository } from './repositories/room-repository';
 import { RoomInput, RoomOutput } from './dto/room.dto';
 import { ConflictError } from '../common/error/ConflictError';
 import { ErrorCode } from '../common/error/errorCodeEnum/ErrorCodeEnum';
-import {
-  LikeRoomInput,
-  LikeRoomOutput,
-  LikeRoomResult,
-} from './dto/like-room.dto';
+import { LikeRoomInput, LikeRoomOutput, LikeRoomResult } from './dto/like-room.dto';
 import { UserRepository } from '../users/repositories/user-repository';
 import { LikeRoomRepository } from './repositories/like-room-repository';
 import { NotFoundError } from '../common/error/NotFoundError';
-import {LikeRoom} from "./entities/like-room.entity";
+import { LikeRoom } from './entities/like-room.entity';
 
 @Injectable()
 export class RoomsService {
@@ -30,30 +21,21 @@ export class RoomsService {
   async getRoomList(roomsInput: RoomsInput): Promise<RoomsOutput> {
     const builder = this.roomRepository.getRoomBuilder();
 
-    const inputMappedBuilder = await this.roomRepository.mappingBuilderByInput(
-      builder,
-      roomsInput,
+    const inputMappedBuilder = await this.roomRepository.mappingBuilderByInput(builder, roomsInput);
+
+    const skipAndTakeMappedBuilder = this.roomRepository.mappingBuilderBySkipAndTake(
+      inputMappedBuilder,
+      roomsInput.page,
+      roomsInput.size,
     );
 
-    const skipAndTakeMappedBuilder =
-      this.roomRepository.mappingBuilderBySkipAndTake(
-        inputMappedBuilder,
-        roomsInput.page,
-        roomsInput.size,
-      );
-
-    const [rooms, totalCount] =
-      await skipAndTakeMappedBuilder.getManyAndCount();
+    const [rooms, totalCount] = await skipAndTakeMappedBuilder.getManyAndCount();
 
     if (rooms.length === 0) {
       throw new ConflictError('Room not found', ErrorCode.NOT_FOUND);
     }
 
-    const results = RoomResultWithHasNext.toDto(
-      rooms,
-      roomsInput.page,
-      totalCount,
-    );
+    const results = RoomResultWithHasNext.toDto(rooms, roomsInput.page, totalCount);
 
     return {
       ok: true,
@@ -64,10 +46,7 @@ export class RoomsService {
   async getRoomById(roomInput: RoomInput): Promise<RoomOutput> {
     const builder = this.roomRepository.getRoomBuilder();
 
-    const inputMappedBuilder = await this.roomRepository.mappingBuilderById(
-      builder,
-      roomInput,
-    );
+    const inputMappedBuilder = await this.roomRepository.mappingBuilderById(builder, roomInput);
 
     const room = await inputMappedBuilder.getOne();
 
@@ -83,19 +62,13 @@ export class RoomsService {
     };
   }
 
-  async likeRoom(
-    likeRoomInput: LikeRoomInput,
-    authUser,
-  ): Promise<LikeRoomOutput> {
-    const room = await this.roomRepository.findRoomById(likeRoomInput.roomId)
+  async likeRoom(likeRoomInput: LikeRoomInput, authUser): Promise<LikeRoomOutput> {
+    const room = await this.roomRepository.findRoomById(likeRoomInput.roomId);
     if (!room) {
       throw new NotFoundError('room not found', ErrorCode.NOT_FOUND);
     }
 
-    const roomLike = await this.likeRoomRepository.findLikeRoom(
-      authUser.id,
-      likeRoomInput.roomId,
-    );
+    const roomLike = await this.likeRoomRepository.findLikeRoom(authUser.id, likeRoomInput.roomId);
 
     if (roomLike) {
       await this.likeRoomRepository.deleteLikeRoom(roomLike.id);

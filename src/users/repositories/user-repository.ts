@@ -1,7 +1,6 @@
-import { InternalServerErrorException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { CustomRepository } from '../../common/decorators/typeorm-ex.decorator';
-import { User } from '../entities/user.entity';
+import { CustomRepository } from '@common/decorators/typeorm-ex.decorator';
+import { User }             from '@src/entities/user.entity';
 
 @CustomRepository(User)
 export class UserRepository extends Repository<User> {

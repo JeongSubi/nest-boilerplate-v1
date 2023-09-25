@@ -1,14 +1,9 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { ErrorCode } from 'src/common/error/errorCodeEnum/ErrorCodeEnum';
-import { AuthService } from '../auth.service';
-import { GqlAuthGuard } from './gql-auth.guard';
-import { UserRepository } from '../../users/repositories/user-repository';
+import { UserRepository } from '@src/users/repositories/user-repository';
+import { GqlAuthGuard } from '@src/auth/guards/gql-auth.guard';
+import { AuthService } from '@src/auth/auth.service';
 
 @Injectable()
 export class GqlJwtAuthGuard extends GqlAuthGuard implements CanActivate {
@@ -20,7 +15,6 @@ export class GqlJwtAuthGuard extends GqlAuthGuard implements CanActivate {
   }
 
   private getTokenValueFromAuthorization(value: string) {
-
     if (!value) return null;
     return value.split('Bearer ')[1];
   }
@@ -32,21 +26,14 @@ export class GqlJwtAuthGuard extends GqlAuthGuard implements CanActivate {
       ? payload.isTokenExpired
       : this.authService.validateTokenExpiredInMinutes(payload, 3);
     if (isTokenExpired) {
-      throw new UnauthorizedException(
-        'Refresh Token Expired',
-        ErrorCode.EXPIRED_TOKEN,
-      );
+      throw new UnauthorizedException('Refresh Token Expired', ErrorCode.EXPIRED_TOKEN);
     }
 
     const user = await this.userRepository.findUserByIdAndRefreshToken(
       payload.userId,
       refreshToken,
     );
-    if (!user)
-      throw new UnauthorizedException(
-        'User Not Found',
-        ErrorCode.USER_NOT_FOUND,
-      );
+    if (!user) throw new UnauthorizedException('User Not Found', ErrorCode.USER_NOT_FOUND);
 
     return { payload, isTokenExpired };
   }
@@ -54,9 +41,7 @@ export class GqlJwtAuthGuard extends GqlAuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext) {
     const gqlContext = GqlExecutionContext.create(context).getContext();
     const { authorization, refreshtoken } = gqlContext.req.headers;
-    const refreshTokenValidateResult = await this.validateRefreshToken(
-      refreshtoken,
-    );
+    const refreshTokenValidateResult = await this.validateRefreshToken(refreshtoken);
 
     const accessToken = this.getTokenValueFromAuthorization(authorization);
     const accessTokenNotExist = !accessToken || accessToken === '';
@@ -64,10 +49,7 @@ export class GqlJwtAuthGuard extends GqlAuthGuard implements CanActivate {
     // 액세스 토큰이 없는 경우 리프레시 토큰 검증한 후 액세스 토큰 재발급
     if (accessTokenNotExist) {
       if (refreshTokenValidateResult.payload === null) {
-        throw new UnauthorizedException(
-          'Refresh Token Required',
-          ErrorCode.REFRESH_TOKEN_REQUIRED,
-        );
+        throw new UnauthorizedException('Refresh Token Required', ErrorCode.REFRESH_TOKEN_REQUIRED);
       }
       payload = refreshTokenValidateResult.payload;
       // 액세스 토큰 재발급
@@ -93,10 +75,7 @@ export class GqlJwtAuthGuard extends GqlAuthGuard implements CanActivate {
       gqlContext.req.user = user;
       return true;
     } else {
-      throw new UnauthorizedException(
-        'User Not Found',
-        ErrorCode.USER_NOT_FOUND,
-      );
+      throw new UnauthorizedException('User Not Found', ErrorCode.USER_NOT_FOUND);
     }
   }
 }

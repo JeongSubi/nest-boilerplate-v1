@@ -8,7 +8,8 @@ export class LikeRoomInput {
   @Field((type) => Int)
   @IsInt()
   @IsOptional()
-  roomId: number;z
+  roomId: number;
+  z;
 }
 
 @ObjectType()

@@ -15,10 +15,7 @@ import { validate, ValidationError } from 'class-validator';
 export class CustomTransformPipe implements PipeTransform {
   async transform(value: any, metadata: ArgumentMetadata) {
     if (this.isEmpty(value)) {
-      throw new HttpException(
-        'Validation failed: No payload provided',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException('Validation failed: No payload provided', HttpStatus.BAD_REQUEST);
     }
 
     const object = plainToClass(metadata.metatype, value);

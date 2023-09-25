@@ -1,9 +1,9 @@
 import { Global, Module } from '@nestjs/common';
-import { CommonService } from './common.service';
-import { CustomTypeOrmModule } from './custom.typeorm.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserRepository } from '../users/repositories/user-repository';
-import { User } from '../users/entities/user.entity';
+import { CustomTypeOrmModule } from '@common/custom.typeorm.module';
+import { UserRepository } from '@src/users/repositories/user-repository';
+import { User }           from '@src/entities/user.entity';
+import { CommonService }  from '@common/common.service';
 
 @Global()
 @Module({

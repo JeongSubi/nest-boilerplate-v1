@@ -1,7 +1,7 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { IsDate, IsInt, Min } from 'class-validator';
-import { CoreOutput } from '../../common/dtos/output.dto';
-import { Reservation } from '../entities/reservation.entity';
+import { Reservation } from '@src/reservations/entities/reservation.entity';
+import { CoreOutput } from '@common/dtos/output.dto';
 
 @InputType()
 export class CreateReservationInput {
