@@ -1,6 +1,6 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, INestApplication } from '@nestjs/common';
 import { CustomTransformPipe } from './common/pipe/CustomTransformPipe';
 import * as cookieParser from 'cookie-parser';
 
@@ -16,4 +16,5 @@ async function bootstrap() {
 
   await app.listen(8080);
 }
+
 bootstrap();

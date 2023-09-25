@@ -1,7 +1,10 @@
-# 숙박 예약 서비스 api
+# NestJS Boilerplate V1(JWT Auth ver.)
+: NestJS Boilerplate with passport, localStrategy
 
 ## tech stack
-: NestJs, Graphql, Typescript, typeORM, PostgreSQL
+```
+NestJs, Typescript, typeORM, PostgreSQL, Graphql, Docker
+```
 
 ## ERD
 [ERD 링크]()
@@ -21,5 +24,24 @@
 [reservation]
 - 방 예약하기: reservationRoom <br/><br/>
 
-## dev 서버 시작
-: npm run start:dev
+## Getting Started
+
+```
+USING YARN (Recommend)
+1. yarn install
+2. docker compose -f ./docker/docker-compose-localhost.yml up -d (localhost environment)
+2. yarn start:dev
+
+USING NPM
+1. npm i OR npm i --legacy-peer-deps
+2. docker compose -f ./docker/docker-compose-localhost.yml up -d (localhost environment)
+2. npm start:dev
+```
+
+## Author
+
+```
+2023.06.21 ~
+Author: Subi Jeong
+```
+
