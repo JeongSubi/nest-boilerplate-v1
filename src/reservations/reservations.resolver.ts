@@ -1,14 +1,11 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { ReservationsService } from './reservations.service';
-import { Reservation } from './entities/reservation.entity';
-import {
-  CreateReservationInput,
-  CreateReservationOutput,
-} from './dto/create-reservation.input';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { CreateReservationInput, CreateReservationOutput } from './dto/create-reservation.input';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
-import { AuthUser } from '../common/decorators/auth-user.decorator';
-import { User } from '../users/entities/user.entity';
+import { Reservation } from '@src/reservations/entities/reservation.entity';
+import { ReservationsService } from '@src/reservations/reservations.service';
+import { GqlAuthGuard } from '@src/auth/guards/gql-auth.guard';
+import { AuthUser } from '@common/decorators/auth-user.decorator';
+import { User } from '@src/users/entities/user.entity';
 
 @Resolver(() => Reservation)
 export class ReservationsResolver {
@@ -20,9 +17,6 @@ export class ReservationsResolver {
     @AuthUser() authUser: User,
     @Args('input') createReservationInput: CreateReservationInput,
   ): Promise<CreateReservationOutput> {
-    return this.reservationsService.reservationRoom(
-      createReservationInput,
-      authUser,
-    );
+    return this.reservationsService.reservationRoom(createReservationInput, authUser);
   }
 }

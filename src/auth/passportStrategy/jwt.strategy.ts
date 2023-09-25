@@ -1,8 +1,8 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserRepository } from '../../users/repositories/user-repository';
-import { ErrorCode } from '../../common/error/errorCodeEnum/ErrorCodeEnum';
+import { UserRepository } from '@src/users/repositories/user-repository';
+import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -15,7 +15,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload) {
-
     console.log('------------------------------');
     console.log('jwt strategy, validate()');
     const user = await this.userRepository.findUserById(payload.userId);
@@ -23,10 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (user) {
       return user;
     } else {
-      throw new UnauthorizedException(
-        'User Not Found',
-        ErrorCode.USER_NOT_FOUND,
-      );
+      throw new UnauthorizedException('User Not Found', ErrorCode.USER_NOT_FOUND);
     }
 
     console.log('------------------------------');

@@ -4,15 +4,15 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { LoginInput, LoginOutput, TokenInfo } from './dto/login.dto';
-import { TOKEN_ISSUER } from '../common/common.constants';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { TokenType } from '../common/enums/common.enums';
 import { DataSource } from 'typeorm';
-import { UserRepository } from '../users/repositories/user-repository';
-import { ErrorCode } from '../common/error/errorCodeEnum/ErrorCodeEnum';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
+import { UserRepository } from '@src/users/repositories/user-repository';
+import { LoginInput, LoginOutput, TokenInfo } from '@src/auth/dto/login.dto';
+import { TOKEN_ISSUER } from '@common/common.constants';
+import { TokenType } from '@common/enums/common.enums';
+import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
 
 @Injectable()
 export class AuthService {
@@ -103,9 +103,7 @@ export class AuthService {
   async saveRefreshToken(userId: number, tokenValue: string): Promise<void> {
     return this.dataSource.manager
       .transaction(async (manager) => {
-        const userRepository = await manager.withRepository(
-          this.userRepository,
-        );
+        const userRepository = await manager.withRepository(this.userRepository);
         const existUser = await userRepository.findUserById(userId);
         existUser.setRefreshToken(tokenValue);
         await userRepository.save(existUser);
@@ -117,9 +115,7 @@ export class AuthService {
   }
 
   validateAccessToken(token: string): JwtDecodeWithExpired {
-    const secretKey = process.env.JWT_ACCESS_SECRET
-      ? process.env.JWT_ACCESS_SECRET
-      : 'dev';
+    const secretKey = process.env.JWT_ACCESS_SECRET ? process.env.JWT_ACCESS_SECRET : 'dev';
 
     try {
       const payload = this.jwtService.verify(token, { secret: secretKey });
@@ -127,18 +123,13 @@ export class AuthService {
     } catch (err) {
       if (err instanceof TokenExpiredError) return { isTokenExpired: true };
       else if (err instanceof JsonWebTokenError)
-        throw new UnauthorizedException(
-          'Invalid Token',
-          ErrorCode.INVALID_TOKEN,
-        );
+        throw new UnauthorizedException('Invalid Token', ErrorCode.INVALID_TOKEN);
       else throw new InternalServerErrorException();
     }
   }
 
   validateRefreshToken(token: string): JwtDecodeWithExpired {
-    const secretKey = process.env.JWT_REFRESH_SECRET
-      ? process.env.JWT_REFRESH_SECRET
-      : 'dev';
+    const secretKey = process.env.JWT_REFRESH_SECRET ? process.env.JWT_REFRESH_SECRET : 'dev';
 
     try {
       const payload = this.jwtService.verify(token, { secret: secretKey });
@@ -146,10 +137,7 @@ export class AuthService {
     } catch (err) {
       if (err instanceof TokenExpiredError) return { isTokenExpired: true };
       else if (err instanceof JsonWebTokenError)
-        throw new UnauthorizedException(
-          'Invalid Token',
-          ErrorCode.INVALID_TOKEN,
-        );
+        throw new UnauthorizedException('Invalid Token', ErrorCode.INVALID_TOKEN);
       else throw new InternalServerErrorException();
     }
   }
@@ -160,9 +148,7 @@ export class AuthService {
     const now = new Date();
 
     // 남은시간 (분)
-    const betweenTime = Math.floor(
-      (tokenExp.getTime() - now.getTime()) / 1000 / 60,
-    );
+    const betweenTime = Math.floor((tokenExp.getTime() - now.getTime()) / 1000 / 60);
 
     if (betweenTime < minutes) return true;
     return false;
@@ -184,10 +170,7 @@ export class AuthService {
     const passwordCorrect = await result.checkPassword(loginInput.password);
 
     if (!passwordCorrect) {
-      throw new UnauthorizedException(
-        'wrong password',
-        ErrorCode.INVALID_PASSWORD,
-      );
+      throw new UnauthorizedException('wrong password', ErrorCode.INVALID_PASSWORD);
     }
 
     return {

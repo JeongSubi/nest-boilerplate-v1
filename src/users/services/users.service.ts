@@ -1,17 +1,15 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserRepository } from '../repositories/user-repository';
-import { CreateUserInput, CreateUserOutput } from '../dto/create-user.dto';
-import { ErrorCode } from '../../common/error/errorCodeEnum/ErrorCodeEnum';
-import { ConflictError } from '../../common/error/ConflictError';
-import { DeleteUserInput, DeleteUserOutput } from '../dto/delete-user.dto';
+import { UserRepository } from '@src/users/repositories/user-repository';
+import { CreateUserInput, CreateUserOutput } from '@src/users/dto/create-user.dto';
+import { ConflictError } from '@common/error/ConflictError';
+import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { DeleteUserInput, DeleteUserOutput } from '@src/users/dto/delete-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async createUser(
-    createUserInput: CreateUserInput,
-  ): Promise<CreateUserOutput | null> {
+  async createUser(createUserInput: CreateUserInput): Promise<CreateUserOutput | null> {
     const existingUser = await this.userRepository.findOneBy({
       email: createUserInput.email,
     });
@@ -29,10 +27,7 @@ export class UsersService {
     return { ok: true, results: { user } };
   }
 
-  async deleteUser(
-    authUser,
-    deleteUserInput: DeleteUserInput,
-  ): Promise<DeleteUserOutput> {
+  async deleteUser(authUser, deleteUserInput: DeleteUserInput): Promise<DeleteUserOutput> {
     const existUser = await this.userRepository.findOne({
       where: { id: authUser.id },
       select: { id: true, email: true, password: true },
@@ -42,10 +37,7 @@ export class UsersService {
       const passwordCorrect = existUser.checkPassword(deleteUserInput.password);
 
       if (!passwordCorrect) {
-        throw new UnauthorizedException(
-          'wrong password',
-          ErrorCode.INVALID_PASSWORD,
-        );
+        throw new UnauthorizedException('wrong password', ErrorCode.INVALID_PASSWORD);
       }
     }
 

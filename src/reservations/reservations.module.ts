@@ -1,19 +1,16 @@
 import { Module } from '@nestjs/common';
-import { ReservationsService } from './reservations.service';
-import { ReservationsResolver } from './reservations.resolver';
-import { CustomTypeOrmModule } from '../common/custom.typeorm.module';
-import { RoomRepository } from '../rooms/repositories/room-repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Reservation } from './entities/reservation.entity';
-import { ReservationRepository } from './repositories/reservation-repository';
-import { UtilModule } from '../util/util.module';
+import { CustomTypeOrmModule } from '@common/custom.typeorm.module';
+import { RoomRepository } from '@src/rooms/repositories/room-repository';
+import { ReservationRepository } from '@src/reservations/repositories/reservation-repository';
+import { Reservation } from '@src/reservations/entities/reservation.entity';
+import { UtilModule } from '@src/util/util.module';
+import { ReservationsResolver } from '@src/reservations/reservations.resolver';
+import { ReservationsService } from '@src/reservations/reservations.service';
 
 @Module({
   imports: [
-    CustomTypeOrmModule.forCustomRepository([
-      RoomRepository,
-      ReservationRepository,
-    ]),
+    CustomTypeOrmModule.forCustomRepository([RoomRepository, ReservationRepository]),
     TypeOrmModule.forFeature([Reservation]),
     UtilModule,
   ],

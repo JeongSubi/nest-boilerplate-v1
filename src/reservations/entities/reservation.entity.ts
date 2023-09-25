@@ -1,17 +1,8 @@
-import { ObjectType, Field, Int, registerEnumType } from '@nestjs/graphql';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  Unique,
-} from 'typeorm';
-import { CoreEntity } from '../../common/entities/core.entity';
-import { User } from '../../users/entities/user.entity';
-import { Room } from '../../rooms/entities/room.entity';
+import { ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { CoreEntity } from '@common/entities/core.entity';
+import { User } from '@src/users/entities/user.entity';
+import { Room } from '@src/rooms/entities/room.entity';
 
 export enum Status {
   RESERVATION = 'RESERVATION',
@@ -42,13 +33,7 @@ export class Reservation extends CoreEntity {
   @ManyToOne(() => Room, (room) => room.reservation)
   room: Room;
 
-  constructor(
-    user: User,
-    room: Room,
-    reservationDate: Date,
-    status,
-    reservationNumber: string,
-  ) {
+  constructor(user: User, room: Room, reservationDate: Date, status, reservationNumber: string) {
     super();
     this.user = user;
     this.room = room;
@@ -64,12 +49,6 @@ export class Reservation extends CoreEntity {
     status: Status,
     reservationNumber: string,
   ) {
-    return new Reservation(
-      user,
-      room,
-      reservationDate,
-      status,
-      reservationNumber,
-    );
+    return new Reservation(user, room, reservationDate, status, reservationNumber);
   }
 }
