@@ -1,8 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { ErrorCode } from 'src/common/error/errorCodeEnum/ErrorCodeEnum';
-import { UserRepository } from '@src/users/repositories/user-repository';
-import { GqlAuthGuard } from '@src/auth/guards/gql-auth.guard';
+import { ErrorCode }      from 'src/common/error/errorCodeEnum/ErrorCodeEnum';
+import { UserRepository } from '@modules/users/repositories/user-repository';
+import { GqlAuthGuard }   from '@src/auth/guards/gql-auth.guard';
 import { AuthService } from '@src/auth/auth.service';
 
 @Injectable()

@@ -5,11 +5,11 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
 import * as Joi from 'joi';
 import { JwtModule } from '@nestjs/jwt';
-import { UsersModule } from '@src/users/users.module';
+import { UsersModule } from '@modules/users/users.module';
 import { CommonModule } from '@common/common.module';
-import { RoomsModule } from '@src/rooms/rooms.module';
+import { RoomsModule } from '@modules/rooms/rooms.module';
 import { AuthModule } from '@src/auth/auth.module';
-import { ReservationsModule } from '@src/reservations/reservations.module';
+import { ReservationsModule } from '@modules/reservations/reservations.module';
 import { AppService } from '@src/app.service';
 
 @Module({
