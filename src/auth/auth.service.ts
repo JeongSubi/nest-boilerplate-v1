@@ -8,7 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { DataSource } from 'typeorm';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
-import { UserRepository } from '@src/users/repositories/user-repository';
+import { UserRepository } from '@repositories/user-repository';
 import { LoginInput, LoginOutput, TokenInfo } from '@src/auth/dto/login.dto';
 import { TOKEN_ISSUER } from '@common/common.constants';
 import { TokenType } from '@common/enums/common.enums';

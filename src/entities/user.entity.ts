@@ -2,9 +2,9 @@ import { ObjectType } from '@nestjs/graphql';
 import { Entity, Unique, Column, BeforeInsert, BeforeUpdate, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
-import { CoreEntity }                   from '@common/entities/core.entity';
-import { LikeRoom }                     from '@src/rooms/entities/like-room.entity';
-import { Reservation }                  from '@src/reservations/entities/reservation.entity';
+import { CoreEntity }  from '@common/entities/core.entity';
+import { LikeRoom }    from '@entities/like-room.entity';
+import { Reservation } from '@entities/reservation.entity';
 
 @ObjectType()
 @Entity('user')

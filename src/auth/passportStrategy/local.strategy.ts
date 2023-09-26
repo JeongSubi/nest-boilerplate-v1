@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { UserRepository } from '@src/users/repositories/user-repository';
-import { User }           from '@src/entities/user.entity';
-import { ErrorCode }      from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { UserRepository } from '@repositories/user-repository';
+import { User } from '@src/entities/user.entity';
+import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
