@@ -1,14 +1,14 @@
-import { Injectable }            from '@nestjs/common';
-import { RoomRepository }        from '@modules/rooms/repositories/room-repository';
-import { ReservationRepository } from '@modules/reservations/repositories/reservation-repository';
-import { UtilService }           from '@src/util/util.service';
+import { Injectable } from '@nestjs/common';
+import { RoomRepository } from '@repositories/room-repository';
+import { ReservationRepository } from '@repositories/reservation-repository';
+import { UtilService } from '@src/util/util.service';
 import {
   CreateReservationInput,
   CreateReservationOutput,
-}                                from '@modules/reservations/dto/create-reservation.input';
-import { ErrorCode }             from '@common/error/errorCodeEnum/ErrorCodeEnum';
-import { Reservation, Status }   from '@entities/reservation.entity';
-import { NotFoundError }         from '@common/error/NotFoundError';
+} from '@modules/reservations/dto/create-reservation.input';
+import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { Reservation, Status } from '@entities/reservation.entity';
+import { NotFoundError } from '@common/error/NotFoundError';
 
 @Injectable()
 export class ReservationsService {

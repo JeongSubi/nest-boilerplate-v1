@@ -1,8 +1,8 @@
 import { Repository, SelectQueryBuilder } from 'typeorm';
-import { CustomRepository }               from '@common/decorators/typeorm-ex.decorator';
-import { Room }                           from '@entities/room.entity';
-import { RoomsInput }                     from '../dto/rooms.dto';
-import { RoomInput }                      from '../dto/room.dto';
+import { CustomRepository } from '@common/decorators/typeorm-ex.decorator';
+import { Room } from '@entities/room.entity';
+import { RoomsInput } from '@modules/rooms/dto/rooms.dto';
+import { RoomInput } from '@modules/rooms/dto/room.dto';
 
 @CustomRepository(Room)
 export class RoomRepository extends Repository<Room> {

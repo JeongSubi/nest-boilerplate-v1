@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserRepository }                    from '@modules/users/repositories/user-repository';
+import { UserRepository } from '@repositories/user-repository';
 import { CreateUserInput, CreateUserOutput } from '@modules/users/dto/create-user.dto';
-import { ConflictError }                     from '@common/error/ConflictError';
-import { ErrorCode }                         from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { ConflictError } from '@common/error/ConflictError';
+import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
 import { DeleteUserInput, DeleteUserOutput } from '@modules/users/dto/delete-user.dto';
 
 @Injectable()

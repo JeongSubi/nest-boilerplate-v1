@@ -1,8 +1,8 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserRepository }                    from '@modules/users/repositories/user-repository';
-import { ErrorCode }                         from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { UserRepository } from '@repositories/user-repository';
+import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
