@@ -1,14 +1,14 @@
-import { Injectable }                                                 from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { RoomResult, RoomResultWithHasNext, RoomsInput, RoomsOutput } from './dto/rooms.dto';
-import { RoomRepository }                                             from './repositories/room-repository';
-import { RoomInput, RoomOutput }                                      from './dto/room.dto';
-import { ConflictError }                                              from '@common/error/ConflictError';
-import { ErrorCode }                                                  from '@common/error/errorCodeEnum/ErrorCodeEnum';
-import { LikeRoomInput, LikeRoomOutput, LikeRoomResult }              from './dto/like-room.dto';
-import { UserRepository }                                             from '@modules/users/repositories/user-repository';
-import { LikeRoomRepository }                                         from './repositories/like-room-repository';
-import { NotFoundError }                                              from '@common/error/NotFoundError';
-import { LikeRoom }                                                   from '@entities/like-room.entity';
+import { RoomRepository } from '@repositories/room-repository';
+import { RoomInput, RoomOutput } from './dto/room.dto';
+import { ConflictError } from '@common/error/ConflictError';
+import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { LikeRoomInput, LikeRoomOutput, LikeRoomResult } from './dto/like-room.dto';
+import { UserRepository } from '@repositories/user-repository';
+import { LikeRoomRepository } from '@repositories/like-room-repository';
+import { NotFoundError } from '@common/error/NotFoundError';
+import { LikeRoom } from '@entities/like-room.entity';
 
 @Injectable()
 export class RoomsService {
