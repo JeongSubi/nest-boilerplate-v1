@@ -1,10 +1,9 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { IsOptional, IsString } from 'class-validator';
-import { Builder }              from 'builder-pattern';
+import { Builder } from 'builder-pattern';
 import { BasicPaginationInput } from '@common/dtos/basic-pagination.dto';
-import { CoreOutput }           from '@common/dtos/output.dto';
-import { Room, RoomType }       from '@entities/room.entity';
-import { Column }               from 'typeorm';
+import { CoreOutput } from '@common/dtos/output.dto';
+import { Room, RoomType } from '@entities/room.entity';
 
 @InputType()
 export class RoomsInput extends BasicPaginationInput {

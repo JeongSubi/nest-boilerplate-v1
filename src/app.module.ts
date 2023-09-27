@@ -67,11 +67,11 @@ import { AppService } from '@src/app.service';
         credentials: true,
       },
       autoSchemaFile: true,
-      context: ({ req, res }) => {
+      context: ({ request, response }) => {
         return {
-          authorization: req.headers.authorization,
-          req,
-          res,
+          authorization: response.headers.authorization,
+          request,
+          response,
         };
       },
     }),

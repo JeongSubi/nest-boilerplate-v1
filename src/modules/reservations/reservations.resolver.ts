@@ -1,11 +1,11 @@
-import { Resolver, Query, Mutation, Args }               from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CreateReservationDto, CreateReservationOutput } from './dto/create-reservation.dto';
-import { UseGuards }                                     from '@nestjs/common';
-import { Reservation }                                     from '@entities/reservation.entity';
-import { ReservationsService }                             from '@modules/reservations/reservations.service';
-import { GqlAuthGuard }                                    from '@src/auth/guards/gql-auth.guard';
-import { AuthUser }                                        from '@common/decorators/auth-user.decorator';
-import { User }                                            from '@entities/user.entity';
+import { UseGuards } from '@nestjs/common';
+import { Reservation } from '@entities/reservation.entity';
+import { ReservationsService } from '@modules/reservations/reservations.service';
+import { GqlAuthGuard } from '@src/auth/guards/gql-auth.guard';
+import { AuthUser } from '@common/decorators/auth-user.decorator';
+import { User } from '@entities/user.entity';
 
 @Resolver(() => Reservation)
 export class ReservationsResolver {

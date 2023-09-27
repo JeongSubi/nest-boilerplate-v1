@@ -10,10 +10,10 @@ import { DataSource, EntityManager } from 'typeorm';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { UserRepository } from '@repositories/user-repository';
 import { LoginInput, LoginOutput, TokenInfo } from '@src/auth/dto/login.dto';
-import { TOKEN_ISSUER } from '@common/constants/common.constants';
-import { TokenType } from '@common/enums/common.enums';
-import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
-import { JwtDecodeWithExpired, JwtPayload } from '@common/types/common.type';
+import { TOKEN_ISSUER } from '@common/constants/auth.constants';
+import { TokenType } from '@common/enums/auth.enums';
+import { ErrorCode } from '@common/enums/ErrorCodeEnum';
+import { JwtDecodeWithExpired, JwtPayload } from '@common/types/auth.type';
 import { User } from '@entities/user.entity';
 
 @Injectable()

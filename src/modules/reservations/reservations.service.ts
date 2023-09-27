@@ -6,9 +6,10 @@ import {
   CreateReservationDto,
   CreateReservationOutput,
 } from '@modules/reservations/dto/create-reservation.dto';
-import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { ErrorCode } from '@common/enums/ErrorCodeEnum';
 import { Reservation, Status } from '@entities/reservation.entity';
 import { NotFoundError } from '@common/error/NotFoundError';
+import { Room } from '@entities/room.entity';
 
 @Injectable()
 export class ReservationsService {
@@ -24,13 +25,13 @@ export class ReservationsService {
   ): Promise<CreateReservationOutput> {
     await this.utilService.setReservationTime(createReservationInput.reservationDate);
 
-    const room = await this.roomRepository.findRoomById(createReservationInput.roomId);
+    const room: Room = await this.roomRepository.findRoomById(createReservationInput.roomId);
 
     if (!room) {
       throw new NotFoundError('room not found', ErrorCode.NOT_FOUND);
     }
 
-    const reservedRoom = await this.roomRepository.findReservedRoomByDate(
+    const reservedRoom: Room = await this.roomRepository.findReservedRoomByDate(
       createReservationInput.roomId,
       createReservationInput.reservationDate,
     );
@@ -39,9 +40,9 @@ export class ReservationsService {
       throw new NotFoundError('Could not reserve room', ErrorCode.NOT_FOUND);
     }
 
-    const reservationNumber = this.utilService.getRandomString();
+    const reservationNumber: string = this.utilService.getRandomString();
 
-    const newReservation = Reservation.getInstance(
+    const newReservation: Reservation = Reservation.getInstance(
       authUser,
       room,
       createReservationInput.reservationDate,
@@ -49,7 +50,7 @@ export class ReservationsService {
       reservationNumber,
     );
 
-    const reservation = await this.reservationRepository.save(newReservation);
+    const reservation: Reservation = await this.reservationRepository.save(newReservation);
 
     return {
       ok: true,

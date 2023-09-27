@@ -3,7 +3,7 @@ import { RoomResult, RoomResultWithHasNext, RoomsInput, RoomsOutput } from './dt
 import { RoomRepository } from '@repositories/room-repository';
 import { RoomInput, RoomOutput } from './dto/room.dto';
 import { ConflictError } from '@common/error/ConflictError';
-import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { ErrorCode } from '@common/enums/ErrorCodeEnum';
 import { LikeRoomInput, LikeRoomOutput, LikeRoomResult } from './dto/like-room.dto';
 import { UserRepository } from '@repositories/user-repository';
 import { LikeRoomRepository } from '@repositories/like-room-repository';

@@ -3,23 +3,23 @@ import { DataSource, getConnectionManager } from 'typeorm';
 
 @Injectable()
 export class AppService implements OnApplicationShutdown {
-  private readonly logger = new Logger(AppService.name);
+  private readonly logger: Logger = new Logger(AppService.name);
 
-  onApplicationShutdown(signal?: string) {
+  onApplicationShutdown(signal?: string): void {
     this.logger.log('onApplicationShutdown Event Start');
     this.closeDBConnection();
   }
 
   closeDBConnection(): void {
-    const conn: DataSource = getConnectionManager().get();
+    const connection: DataSource = getConnectionManager().get();
 
-    if (conn.isConnected) {
-      conn
+    if (connection.isConnected) {
+      connection
         .close()
         .then((): void => {
           this.logger.log('DB conn closed');
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           this.logger.error('Error closing conn to DB, ', err);
         });
     } else {
