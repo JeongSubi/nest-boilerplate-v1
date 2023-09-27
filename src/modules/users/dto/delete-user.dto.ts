@@ -1,5 +1,5 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { Matches }    from 'class-validator';
+import { Matches } from 'class-validator';
 import { CoreOutput } from '@common/dtos/output.dto';
 
 @InputType()

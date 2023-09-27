@@ -1,25 +1,25 @@
 import { Injectable, Logger, OnApplicationShutdown } from '@nestjs/common';
-import { getConnectionManager } from 'typeorm';
+import { DataSource, getConnectionManager } from 'typeorm';
 
 @Injectable()
 export class AppService implements OnApplicationShutdown {
-  private readonly logger = new Logger(AppService.name);
+  private readonly logger: Logger = new Logger(AppService.name);
 
-  onApplicationShutdown(signal?: string) {
+  onApplicationShutdown(signal?: string): void {
     this.logger.log('onApplicationShutdown Event Start');
     this.closeDBConnection();
   }
 
-  closeDBConnection() {
-    const conn = getConnectionManager().get();
+  closeDBConnection(): void {
+    const connection: DataSource = getConnectionManager().get();
 
-    if (conn.isConnected) {
-      conn
+    if (connection.isConnected) {
+      connection
         .close()
-        .then(() => {
+        .then((): void => {
           this.logger.log('DB conn closed');
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           this.logger.error('Error closing conn to DB, ', err);
         });
     } else {

@@ -6,13 +6,15 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { DataSource } from 'typeorm';
+import { DataSource, EntityManager } from 'typeorm';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { UserRepository } from '@repositories/user-repository';
 import { LoginInput, LoginOutput, TokenInfo } from '@src/auth/dto/login.dto';
-import { TOKEN_ISSUER } from '@common/common.constants';
-import { TokenType } from '@common/enums/common.enums';
-import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { TOKEN_ISSUER } from '@common/constants/auth.constants';
+import { TokenType } from '@common/enums/auth.enums';
+import { ErrorCode } from '@common/enums/ErrorCodeEnum';
+import { JwtDecodeWithExpired, JwtPayload } from '@common/types/auth.type';
+import { User } from '@entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -57,10 +59,10 @@ export class AuthService {
 
   createAccessToken(userId: number): TokenInfo {
     const payload: JwtPayload = { userId, issuer: TOKEN_ISSUER };
-    const maxAgeByMs = this.getMaxAge(TokenType.access);
-    const maxAgeBySeconds = maxAgeByMs / 1000;
+    const maxAgeByMs: number = this.getMaxAge(TokenType.access);
+    const maxAgeBySeconds: number = maxAgeByMs / 1000;
     // 액세스 토큰 발급
-    const token = this.jwtService.sign(payload, {
+    const token: string = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_ACCESS_SECRET'),
       expiresIn: maxAgeBySeconds,
     });
@@ -73,10 +75,10 @@ export class AuthService {
 
   async createRefreshToken(userId: number): Promise<TokenInfo> {
     const payload: JwtPayload = { userId, issuer: TOKEN_ISSUER };
-    const maxAgeByMs = this.getMaxAge(TokenType.refresh);
-    const maxAgeBySeconds = maxAgeByMs / 1000;
+    const maxAgeByMs: number = this.getMaxAge(TokenType.refresh);
+    const maxAgeBySeconds: number = maxAgeByMs / 1000;
     // 리프레시 토큰 발급
-    const token = this.jwtService.sign(payload, {
+    const token: string = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_REFRESH_SECRET'),
       expiresIn: maxAgeBySeconds,
     });
@@ -102,8 +104,8 @@ export class AuthService {
 
   async saveRefreshToken(userId: number, tokenValue: string): Promise<void> {
     return this.dataSource.manager
-      .transaction(async (manager) => {
-        const userRepository = await manager.withRepository(this.userRepository);
+      .transaction(async (manager: EntityManager): Promise<void> => {
+        const userRepository: UserRepository = await manager.withRepository(this.userRepository);
         const existUser = await userRepository.findUserById(userId);
         existUser.setRefreshToken(tokenValue);
         await userRepository.save(existUser);
@@ -115,7 +117,7 @@ export class AuthService {
   }
 
   validateAccessToken(token: string): JwtDecodeWithExpired {
-    const secretKey = process.env.JWT_ACCESS_SECRET ? process.env.JWT_ACCESS_SECRET : 'dev';
+    const secretKey: string = process.env.JWT_ACCESS_SECRET ? process.env.JWT_ACCESS_SECRET : 'dev';
 
     try {
       const payload = this.jwtService.verify(token, { secret: secretKey });
@@ -129,7 +131,9 @@ export class AuthService {
   }
 
   validateRefreshToken(token: string): JwtDecodeWithExpired {
-    const secretKey = process.env.JWT_REFRESH_SECRET ? process.env.JWT_REFRESH_SECRET : 'dev';
+    const secretKey: string = process.env.JWT_REFRESH_SECRET
+      ? process.env.JWT_REFRESH_SECRET
+      : 'dev';
 
     try {
       const payload = this.jwtService.verify(token, { secret: secretKey });
@@ -144,11 +148,11 @@ export class AuthService {
 
   validateTokenExpiredInMinutes = (decodedToken, minutes: number) => {
     // token 기간 체크
-    const tokenExp = new Date(decodedToken['exp'] * 1000);
-    const now = new Date();
+    const tokenExp: Date = new Date(decodedToken['exp'] * 1000);
+    const now: Date = new Date();
 
     // 남은시간 (분)
-    const betweenTime = Math.floor((tokenExp.getTime() - now.getTime()) / 1000 / 60);
+    const betweenTime: number = Math.floor((tokenExp.getTime() - now.getTime()) / 1000 / 60);
 
     if (betweenTime < minutes) return true;
     return false;
@@ -157,17 +161,17 @@ export class AuthService {
   async validateUser(loginInput: LoginInput) {
     console.log('-----------AuthService.login()------------');
 
-    const result = await this.userRepository.findOneUser(loginInput.email);
+    const result: User = await this.userRepository.findOneUser(loginInput.email);
 
     if (!result) {
       throw new NotFoundException('user not found', ErrorCode.USER_NOT_FOUND);
     }
 
     const payload: JwtPayload = { userId: result.id, issuer: 'JEONGSUBI' };
-    const maxAgeByMs = this.getMaxAge(TokenType.access);
-    const maxAgeBySeconds = maxAgeByMs / 1000;
+    const maxAgeByMs: number = this.getMaxAge(TokenType.access);
+    const maxAgeBySeconds: number = maxAgeByMs / 1000;
 
-    const passwordCorrect = await result.checkPassword(loginInput.password);
+    const passwordCorrect: boolean = await result.checkPassword(loginInput.password);
 
     if (!passwordCorrect) {
       throw new UnauthorizedException('wrong password', ErrorCode.INVALID_PASSWORD);

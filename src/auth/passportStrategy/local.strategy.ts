@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { UserRepository } from '@repositories/user-repository';
 import { User } from '@src/entities/user.entity';
-import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { ErrorCode } from '@common/enums/ErrorCodeEnum';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {

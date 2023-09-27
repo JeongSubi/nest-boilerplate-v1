@@ -2,8 +2,8 @@ import { ObjectType } from '@nestjs/graphql';
 import { Entity, Unique, Column, BeforeInsert, BeforeUpdate, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
-import { CoreEntity }  from '@common/entities/core.entity';
-import { LikeRoom }    from '@entities/like-room.entity';
+import { CoreEntity } from '@entities/core.entity';
+import { LikeRoom } from '@entities/like-room.entity';
 import { Reservation } from '@entities/reservation.entity';
 
 @ObjectType()
@@ -43,8 +43,8 @@ export class User extends CoreEntity {
     if (this.password) {
       try {
         this.password = await bcrypt.hash(this.password, 10);
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
         throw new InternalServerErrorException();
       }
     }
@@ -54,8 +54,8 @@ export class User extends CoreEntity {
     try {
       const ok = await bcrypt.compare(inputPassword, this.password);
       return ok;
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException();
     }
   }

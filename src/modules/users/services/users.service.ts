@@ -2,15 +2,16 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserRepository } from '@repositories/user-repository';
 import { CreateUserInput, CreateUserOutput } from '@modules/users/dto/create-user.dto';
 import { ConflictError } from '@common/error/ConflictError';
-import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
+import { ErrorCode } from '@common/enums/ErrorCodeEnum';
 import { DeleteUserInput, DeleteUserOutput } from '@modules/users/dto/delete-user.dto';
+import { User } from '@entities/user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async createUser(createUserInput: CreateUserInput): Promise<CreateUserOutput | null> {
-    const existingUser = await this.userRepository.findOneBy({
+    const existingUser: User = await this.userRepository.findOneBy({
       email: createUserInput.email,
     });
 
@@ -21,20 +22,20 @@ export class UsersService {
       );
     }
 
-    const newUser = createUserInput.toUserEntity();
-    const user = await this.userRepository.save(newUser);
+    const newUser: User = createUserInput.toUserEntity();
+    const user: User = await this.userRepository.save(newUser);
 
     return { ok: true, results: { user } };
   }
 
   async deleteUser(authUser, deleteUserInput: DeleteUserInput): Promise<DeleteUserOutput> {
-    const existUser = await this.userRepository.findOne({
+    const existUser: User = await this.userRepository.findOne({
       where: { id: authUser.id },
       select: { id: true, email: true, password: true },
     });
 
     if (existUser) {
-      const passwordCorrect = existUser.checkPassword(deleteUserInput.password);
+      const passwordCorrect: Promise<boolean> = existUser.checkPassword(deleteUserInput.password);
 
       if (!passwordCorrect) {
         throw new UnauthorizedException('wrong password', ErrorCode.INVALID_PASSWORD);

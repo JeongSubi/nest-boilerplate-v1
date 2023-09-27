@@ -13,13 +13,13 @@ import { validate, ValidationError } from 'class-validator';
  */
 @Injectable()
 export class CustomTransformPipe implements PipeTransform {
-  async transform(value: any, metadata: ArgumentMetadata) {
+  async transform(value: any, metadata: ArgumentMetadata): Promise<any> {
     if (this.isEmpty(value)) {
       throw new HttpException('Validation failed: No payload provided', HttpStatus.BAD_REQUEST);
     }
 
     const object = plainToClass(metadata.metatype, value);
-    const errors = await validate(object);
+    const errors: ValidationError[] = await validate(object);
 
     if (errors.length > 0) {
       throw new HttpException(
@@ -31,16 +31,16 @@ export class CustomTransformPipe implements PipeTransform {
     return object;
   }
 
-  private isEmpty(value: any) {
+  private isEmpty(value: any): boolean {
     if (Object.keys(value).length < 1) {
       return true;
     }
     return false;
   }
 
-  private formatErrors(errors: ValidationError[]) {
+  private formatErrors(errors: ValidationError[]): string {
     return errors
-      .map((error) => {
+      .map((error: ValidationError) => {
         for (const key in error.constraints) {
           return error.constraints[key];
         }

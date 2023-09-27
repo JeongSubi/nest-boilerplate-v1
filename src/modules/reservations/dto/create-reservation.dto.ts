@@ -1,10 +1,10 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { IsDate, IsInt, Min } from 'class-validator';
-import { Reservation }        from '@entities/reservation.entity';
-import { CoreOutput }         from '@common/dtos/output.dto';
+import { Reservation } from '@entities/reservation.entity';
+import { CoreOutput } from '@common/dtos/output.dto';
 
 @InputType()
-export class CreateReservationInput {
+export class CreateReservationDto {
   @Field((type) => Int)
   @IsInt()
   @Min(1)

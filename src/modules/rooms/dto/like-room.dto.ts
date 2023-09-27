@@ -1,6 +1,6 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
-import { CoreOutput }                        from '@common/dtos/output.dto';
-import { IsInt, IsOptional }                 from 'class-validator';
+import { CoreOutput } from '@common/dtos/output.dto';
+import { IsInt, IsOptional } from 'class-validator';
 import { Builder } from 'builder-pattern';
 
 @InputType()

@@ -1,7 +1,7 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { IsEmail, IsString, Matches } from 'class-validator';
-import { Builder }    from 'builder-pattern';
-import { User }       from '@entities/user.entity';
+import { Builder } from 'builder-pattern';
+import { User } from '@entities/user.entity';
 import { CoreOutput } from '@common/dtos/output.dto';
 
 @InputType()
