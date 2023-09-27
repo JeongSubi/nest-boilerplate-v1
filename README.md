@@ -2,11 +2,11 @@
 : NestJS Boilerplate with passport, localStrategy
 
 ## tech stack
-: NestJs, Typescript, typeORM, PostgreSQL, Graphql, Docker
+: NestJs, Typescript, TypeORM, PostgreSQL, Graphql, Docker
 
 
 ## ERD
-[ERD 링크]()
+[ERD sample 링크](https://files.slack.com/files-pri/T04JRJSDWKU-F05TW2FL8BY/_______________________________2023-09-27_________________11.51.29.png)
 
 ## example API
 ```
