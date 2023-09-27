@@ -6,7 +6,7 @@ import { RoomInput } from '@modules/rooms/dto/room.dto';
 
 @CustomRepository(Room)
 export class RoomRepository extends Repository<Room> {
-  getRoomBuilder() {
+  getRoomBuilder(): SelectQueryBuilder<Room> {
     return this.createQueryBuilder('room').select([
       'room.id',
       'room.createdAt',
@@ -38,7 +38,11 @@ export class RoomRepository extends Repository<Room> {
     return builder;
   }
 
-  mappingBuilderBySkipAndTake(builder: SelectQueryBuilder<Room>, page: number, size: number) {
+  mappingBuilderBySkipAndTake(
+    builder: SelectQueryBuilder<Room>,
+    page: number,
+    size: number,
+  ): SelectQueryBuilder<Room> {
     return builder.skip((page - 1) * size).take(size);
   }
 
@@ -50,7 +54,7 @@ export class RoomRepository extends Repository<Room> {
       .getOne();
   }
 
-  async findReservedRoomByDate(id: number, reservationDate: Date) {
+  async findReservedRoomByDate(id: number, reservationDate: Date): Promise<Room> {
     return await this.createQueryBuilder('room')
       .leftJoin('room.reservation', 'reservation')
       .select(['room.id'])

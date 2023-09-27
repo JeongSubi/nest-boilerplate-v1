@@ -1,10 +1,10 @@
-import { Repository }       from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CustomRepository } from '@common/decorators/typeorm-ex.decorator';
-import { LikeRoom }         from '@entities/like-room.entity';
+import { LikeRoom } from '@entities/like-room.entity';
 
 @CustomRepository(LikeRoom)
 export class LikeRoomRepository extends Repository<LikeRoom> {
-  findLikeRoom(userId: number, likeRoomId: number) {
+  findLikeRoom(userId: number, likeRoomId: number): Promise<LikeRoom> {
     return this.createQueryBuilder('likeRooms')
       .innerJoinAndSelect('likeRooms.user', 'user')
       .innerJoinAndSelect('likeRooms.room', 'room')
@@ -15,7 +15,7 @@ export class LikeRoomRepository extends Repository<LikeRoom> {
       .getOne();
   }
 
-  deleteLikeRoom(likeRoomId: number) {
+  deleteLikeRoom(likeRoomId: number): Promise<DeleteResult> {
     return this.createQueryBuilder('likeRoom')
       .delete()
       .from(LikeRoom)

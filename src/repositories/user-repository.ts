@@ -1,10 +1,10 @@
-import { Repository }       from 'typeorm';
+import { Repository } from 'typeorm';
 import { CustomRepository } from '@common/decorators/typeorm-ex.decorator';
-import { User }             from '@entities/user.entity';
+import { User } from '@entities/user.entity';
 
 @CustomRepository(User)
 export class UserRepository extends Repository<User> {
-  async findUserById(id) {
+  async findUserById(id): Promise<User> {
     return await this.createQueryBuilder('user')
       .where('user.id = :id', {
         id,
@@ -12,7 +12,7 @@ export class UserRepository extends Repository<User> {
       .getOne();
   }
 
-  async findOneUser(email) {
+  async findOneUser(email): Promise<User> {
     const user = await this.findOne({
       where: {
         email,
@@ -22,7 +22,7 @@ export class UserRepository extends Repository<User> {
     return user;
   }
 
-  async findUserByIdAndRefreshToken(id: number, refreshToken: string) {
+  async findUserByIdAndRefreshToken(id: number, refreshToken: string): Promise<User> {
     return await this.createQueryBuilder('user')
       .where('user.id = :id', { id })
       .andWhere('user.refreshToken = :refreshToken', { refreshToken })

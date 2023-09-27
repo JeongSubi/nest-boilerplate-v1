@@ -1,8 +1,8 @@
-import { ObjectType, Field, Int, registerEnumType } from '@nestjs/graphql';
-import { Column, Entity, OneToMany, Unique } from 'typeorm';
-import { CoreEntity }                        from '@common/entities/core.entity';
-import { LikeRoom }                          from './like-room.entity';
-import { Reservation }                       from '@entities/reservation.entity';
+import { ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Column, Entity, OneToMany } from 'typeorm';
+import { CoreEntity } from '@entities/core.entity';
+import { Reservation } from '@entities/reservation.entity';
+import { LikeRoom } from '@entities/like-room.entity';
 
 export enum RoomType {
   HOTEL = 'HOTEL',

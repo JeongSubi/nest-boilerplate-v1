@@ -1,12 +1,12 @@
-type JwtPayload = {
+export interface JwtPayload {
   userId: number;
   issuer: string;
-};
+}
 
-type JwtDecodeWithExpired = {
+export interface JwtDecodeWithExpired {
   userId?: number;
   issuer?: string;
   iat?: number;
   exp?: number;
   isTokenExpired: boolean;
-};
+}
