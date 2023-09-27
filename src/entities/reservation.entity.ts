@@ -1,8 +1,8 @@
 import { ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { CoreEntity }                from '@common/entities/core.entity';
 import { User } from '@entities/user.entity';
 import { Room } from '@entities/room.entity';
+import { CoreEntity } from '@entities/core.entity';
 
 export enum Status {
   RESERVATION = 'RESERVATION',

@@ -3,9 +3,9 @@ import { RoomRepository } from '@repositories/room-repository';
 import { ReservationRepository } from '@repositories/reservation-repository';
 import { UtilService } from '@src/util/util.service';
 import {
-  CreateReservationInput,
+  CreateReservationDto,
   CreateReservationOutput,
-} from '@modules/reservations/dto/create-reservation.input';
+} from '@modules/reservations/dto/create-reservation.dto';
 import { ErrorCode } from '@common/error/errorCodeEnum/ErrorCodeEnum';
 import { Reservation, Status } from '@entities/reservation.entity';
 import { NotFoundError } from '@common/error/NotFoundError';
@@ -19,7 +19,7 @@ export class ReservationsService {
   ) {}
 
   async reservationRoom(
-    createReservationInput: CreateReservationInput,
+    createReservationInput: CreateReservationDto,
     authUser,
   ): Promise<CreateReservationOutput> {
     await this.utilService.setReservationTime(createReservationInput.reservationDate);

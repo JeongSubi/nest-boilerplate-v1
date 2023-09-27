@@ -1,5 +1,5 @@
-export type TokenInfo = {
+export interface TokenInfo {
   name: string;
   value: string;
   maxAge: number;
-};
+}
