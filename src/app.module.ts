@@ -11,6 +11,7 @@ import { RoomsModule } from '@modules/rooms/rooms.module';
 import { AuthModule } from '@src/auth/auth.module';
 import { ReservationsModule } from '@modules/reservations/reservations.module';
 import { AppService } from '@src/app.service';
+import { UploadModule } from '@common/upload/upload.module';
 
 @Module({
   imports: [
@@ -84,6 +85,7 @@ import { AppService } from '@src/app.service';
       }),
       global: true,
     },
+    UploadModule,
     UsersModule,
     CommonModule,
     RoomsModule,
