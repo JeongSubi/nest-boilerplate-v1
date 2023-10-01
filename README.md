@@ -29,14 +29,27 @@
 
 ```
 USING YARN (Recommend)
-1. yarn install
-2. docker compose -f ./docker/docker-compose-localhost.yml up -d (localhost environment)
-2. yarn start:dev
+$ yarn install
+$ docker compose -f ./docker/docker-compose-localhost.yml up -d (localhost environment)
+$ yarn start:dev
 
 USING NPM
-1. npm i OR npm i --legacy-peer-deps
-2. docker compose -f ./docker/docker-compose-localhost.yml up -d (localhost environment)
-2. npm start:dev
+$ npm i OR npm i --legacy-peer-deps
+$ docker compose -f ./docker/docker-compose-localhost.yml up -d (localhost environment)
+$ npm start:dev
+```
+
+## Test Coverage 
+
+```
+UNIT TEST
+$ npm run test:watch
+
+E2E TEST
+$ npm run test:e2e
+
+TEST COVERAGE
+$ npm run test:cov
 ```
 
 ## Author
