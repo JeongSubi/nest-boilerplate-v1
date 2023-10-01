@@ -9,7 +9,6 @@ export class LikeRoomInput {
   @IsInt()
   @IsOptional()
   roomId: number;
-  z;
 }
 
 @ObjectType()

@@ -82,6 +82,24 @@
     "typescript": "^5.1.3"
   },
   "jest": {
+    "moduleNameMapper": {
+      "@src/(.*)$": "<rootDir>/$1",
+      "@entities/(.*)$": "<rootDir>/entities/$1",
+      "@common/(.*)$": "<rootDir>/common/$1",
+      "@auth/(.*)$": "<rootDir>/auth/$1",
+      "@guards/(.*)$": "<rootDir>/auth/guards/$1",
+      "@args/(.*)$": "<rootDir>/common/args/$1",
+      "@constants/(.*)$": "<rootDir>/common/constants/$1",
+      "@decorators/(.*)$": "<rootDir>/common/decorators/$1",
+      "@enums/(.*)$": "<rootDir>/common/enums/$1",
+      "@error/(.*)$": "<rootDir>/common/error/$1",
+      "@types/(.*)$": "<rootDir>/common/types/$1",
+      "@pipe/(.*)$": "<rootDir>/common/pipe/$1",
+      "@upload/(.*)$": "<rootDir>/common/upload/$1",
+      "@modules/(.*)$": "<rootDir>/modules/$1",
+      "@repositories/(.*)$": "<rootDir>/repositories/$1",
+      "@util/(.*)$": "<rootDir>/util/$1"
+    },
     "moduleFileExtensions": [
       "js",
       "json",

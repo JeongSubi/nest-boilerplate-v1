@@ -1,14 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { RoomResult, RoomResultWithHasNext, RoomsInput, RoomsOutput } from './dto/rooms.dto';
 import { RoomRepository } from '@repositories/room-repository';
-import { RoomInput, RoomOutput } from './dto/room.dto';
 import { ConflictError } from '@common/error/ConflictError';
 import { ErrorCode } from '@common/enums/ErrorCodeEnum';
-import { LikeRoomInput, LikeRoomOutput, LikeRoomResult } from './dto/like-room.dto';
 import { UserRepository } from '@repositories/user-repository';
 import { LikeRoomRepository } from '@repositories/like-room-repository';
 import { NotFoundError } from '@common/error/NotFoundError';
 import { LikeRoom } from '@entities/like-room.entity';
+import {
+  RoomResult,
+  RoomResultWithHasNext,
+  RoomsInput,
+  RoomsOutput,
+} from '@modules/rooms/dto/rooms.dto';
+import { RoomInput, RoomOutput } from '@modules/rooms/dto/room.dto';
+import { LikeRoomInput, LikeRoomOutput, LikeRoomResult } from '@modules/rooms/dto/like-room.dto';
 
 @Injectable()
 export class RoomsService {

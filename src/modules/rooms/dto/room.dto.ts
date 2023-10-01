@@ -1,7 +1,7 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { IsInt, Min } from 'class-validator';
 import { CoreOutput } from '@common/dtos/output.dto';
-import { RoomResult } from './rooms.dto';
+import { RoomResult } from '@modules/rooms/dto/rooms.dto';
 
 @InputType()
 export class RoomInput {
