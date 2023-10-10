@@ -27,10 +27,10 @@ export class Reservation extends CoreEntity {
   })
   status: Status;
 
-  @ManyToOne(() => User, (user) => user.reservation)
+  @ManyToOne(() => User, (user: User) => user.reservation)
   user: User;
 
-  @ManyToOne(() => Room, (room) => room.reservation)
+  @ManyToOne(() => Room, (room: Room) => room.reservation)
   room: Room;
 
   constructor(user: User, room: Room, reservationDate: Date, status, reservationNumber: string) {
@@ -48,7 +48,7 @@ export class Reservation extends CoreEntity {
     reservationDate: Date,
     status: Status,
     reservationNumber: string,
-  ) {
+  ): Reservation {
     return new Reservation(user, room, reservationDate, status, reservationNumber);
   }
 }

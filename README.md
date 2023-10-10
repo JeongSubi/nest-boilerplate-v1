@@ -2,13 +2,13 @@
 : NestJS Boilerplate with passport, localStrategy
 
 ## tech stack
-: NestJs, Typescript, TypeORM, PostgreSQL, Graphql, Docker
+: NestJs, Graphql, Typescript, TypeORM, PostgreSQL, Docker, Jest
 
 
 ## ERD
 [ERD sample 링크](https://files.slack.com/files-pri/T04JRJSDWKU-F05TW2FL8BY/_______________________________2023-09-27_________________11.51.29.png)
 
-## example API
+## sample API
 ```
 [user]
 - 회원가입: signUp 
@@ -43,7 +43,7 @@ $ npm start:dev
 
 ```
 UNIT TEST
-$ npm run test:watch
+$ npm run test
 
 E2E TEST
 $ npm run test:e2e

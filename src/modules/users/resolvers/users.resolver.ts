@@ -11,13 +11,13 @@ import { AuthUser } from '@common/decorators/auth-user.decorator';
 export class UsersResolver {
   constructor(private readonly userService: UsersService) {}
 
-  @Mutation((returns) => CreateUserOutput)
+  @Mutation((returns: void) => CreateUserOutput)
   signUp(@Args('input') createUserInput: CreateUserInput): Promise<CreateUserOutput> {
     return this.userService.createUser(createUserInput);
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation((returns) => DeleteUserOutput)
+  @Mutation((returns: void) => DeleteUserOutput)
   signOut(
     @AuthUser() authUser: User,
     @Args('input') deleteUserInput: DeleteUserInput,

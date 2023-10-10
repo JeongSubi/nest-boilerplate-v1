@@ -40,6 +40,7 @@
     "cookie-parser": "^1.4.6",
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.0",
+    "got": "^13.0.0",
     "graphql": "^16.6.0",
     "graphql-tools": "^9.0.0",
     "graphql-upload": "^16.0.2",
@@ -47,7 +48,7 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
-    "pg": "^8.11.0",
+    "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.16",
@@ -114,6 +115,23 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      ".module.ts",
+      ".dto.ts",
+      "src/main.ts",
+      "src/app.ts",
+      "src/repositories/*",
+      "src/entities/*",
+      "src/migrations/*",
+      "src/common/enums/*",
+      "src/common/error/*",
+      "src/common/types/*",
+      "src/common/dtos/*",
+      "src/common/args/*",
+      "src/common/constants/*",
+      "src/common/decorators/*",
+      "src/common/pipe/*"
+    ]
   }
 }

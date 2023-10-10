@@ -5,24 +5,24 @@ import { CoreOutput } from '@common/dtos/output.dto';
 
 @InputType()
 export class CreateReservationDto {
-  @Field((type) => Int)
+  @Field((type: void) => Int)
   @IsInt()
   @Min(1)
   roomId: number;
 
-  @Field((type) => Date)
+  @Field((type: void) => Date)
   @IsDate()
   reservationDate: Date;
 }
 
 @ObjectType()
 export class CreateReservationResult {
-  @Field((type) => Reservation, { nullable: true })
+  @Field((type: void) => Reservation, { nullable: true })
   readonly reservation?: Reservation;
 }
 
 @ObjectType()
 export class CreateReservationOutput extends CoreOutput {
-  @Field((type) => CreateReservationResult, { nullable: true })
+  @Field((type: void) => CreateReservationResult, { nullable: true })
   readonly results?: CreateReservationResult;
 }

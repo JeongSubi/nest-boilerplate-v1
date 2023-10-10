@@ -5,7 +5,7 @@ import { Builder } from 'builder-pattern';
 
 @InputType()
 export class LikeRoomInput {
-  @Field((type) => Int)
+  @Field((type: void) => Int)
   @IsInt()
   @IsOptional()
   roomId: number;
@@ -13,7 +13,7 @@ export class LikeRoomInput {
 
 @ObjectType()
 export class LikeRoomResult {
-  @Field((type) => Boolean)
+  @Field((type: void) => Boolean)
   isLike: boolean;
 
   static toDto(isLike: boolean): LikeRoomResult {
@@ -23,6 +23,6 @@ export class LikeRoomResult {
 
 @ObjectType()
 export class LikeRoomOutput extends CoreOutput {
-  @Field((type) => LikeRoomResult)
+  @Field((type: void) => LikeRoomResult)
   results?: LikeRoomResult;
 }
