@@ -23,17 +23,19 @@ export class ReservationsService {
     createReservationInput: CreateReservationDto,
     authUser,
   ): Promise<CreateReservationOutput> {
-    await this.utilService.setReservationTime(createReservationInput.reservationDate);
-
     const room: Room = await this.roomRepository.findRoomById(createReservationInput.roomId);
 
     if (!room) {
       throw new NotFoundError('room not found', ErrorCode.NOT_FOUND);
     }
 
+    const setTimeReservationDate: Date = await this.utilService.setReservationTime(
+      createReservationInput.reservationDate,
+    );
+
     const reservedRoom: Room = await this.roomRepository.findReservedRoomByDate(
       createReservationInput.roomId,
-      createReservationInput.reservationDate,
+      setTimeReservationDate,
     );
 
     if (reservedRoom) {

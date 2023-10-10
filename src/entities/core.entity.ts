@@ -13,14 +13,14 @@ export class CoreEntity {
   id: number;
 
   @CreateDateColumn({ type: 'timestamptz' })
-  @Field((type) => Date)
+  @Field((type: void) => Date)
   createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamptz' })
-  @Field((type) => Date)
+  @Field((type: void) => Date)
   updatedAt: Date;
 
   @DeleteDateColumn({ type: 'timestamptz' })
-  @Field((type) => Date, { nullable: true })
+  @Field((type: void) => Date, { nullable: true })
   deletedAt: Date | null;
 }

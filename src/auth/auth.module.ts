@@ -6,8 +6,8 @@ import { CustomTypeOrmModule } from '@common/custom.typeorm.module';
 import { UserRepository } from '@repositories/user-repository';
 import { User } from '@src/entities/user.entity';
 import { UsersModule } from '@modules/users/users.module';
-import { AuthResolver } from '@src/auth/auth.resolver';
-import { AuthService } from '@src/auth/auth.service';
+import { AuthResolver } from '@auth/resolver/auth.resolver';
+import { AuthService } from '@auth/service/auth.service';
 import { JwtStrategy } from '@src/auth/passportStrategy/jwt.strategy';
 import { LocalStrategy } from '@src/auth/passportStrategy/local.strategy';
 

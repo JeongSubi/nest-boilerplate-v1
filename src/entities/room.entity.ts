@@ -3,6 +3,7 @@ import { Column, Entity, OneToMany } from 'typeorm';
 import { CoreEntity } from '@entities/core.entity';
 import { Reservation } from '@entities/reservation.entity';
 import { LikeRoom } from '@entities/like-room.entity';
+import { LikeRoomRepository } from '@repositories/like-room-repository';
 
 export enum RoomType {
   HOTEL = 'HOTEL',
@@ -41,9 +42,9 @@ export class Room extends CoreEntity {
   })
   roomType: RoomType;
 
-  @OneToMany((type) => LikeRoom, (likeRoom) => likeRoom.room)
+  @OneToMany((type) => LikeRoom, (likeRoom: LikeRoom) => likeRoom.room)
   likeRoom: LikeRoom[];
 
-  @OneToMany((type) => Reservation, (reservation) => reservation.room)
+  @OneToMany((type) => Reservation, (reservation: Reservation) => reservation.room)
   reservation: Reservation[];
 }

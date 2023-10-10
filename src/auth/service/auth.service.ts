@@ -9,10 +9,10 @@ import { JwtService } from '@nestjs/jwt';
 import { DataSource, EntityManager } from 'typeorm';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { UserRepository } from '@repositories/user-repository';
-import { LoginInput, LoginOutput, TokenInfo } from '@src/auth/dto/login.dto';
-import { TOKEN_ISSUER } from '@common/constants/auth.constants';
-import { TokenType } from '@common/enums/auth.enums';
-import { ErrorCode } from '@common/enums/ErrorCodeEnum';
+import { LoginInput, LoginOutput, TokenInfo } from '@auth/dto/login.dto';
+import { TOKEN_ISSUER } from '@constants/auth.constants';
+import { TokenType } from '@enums/auth.enums';
+import { ErrorCode } from '@enums/ErrorCodeEnum';
 import { JwtDecodeWithExpired, JwtPayload } from '@common/types/auth.type';
 import { User } from '@entities/user.entity';
 
@@ -25,31 +25,9 @@ export class AuthService {
     private userRepository: UserRepository,
   ) {}
 
-  // async login(loginInput: LoginInput): Promise<LoginOutput> {
-  //   const user = await this.userRepository.findOneUser(loginInput.email);
-  //
-  //   if (!user) {
-  //     throw new ConflictError('User not found', ErrorCode.USER_NOT_FOUND);
-  //   }
-  //
-  //   const passwordCorrect = await user.checkPassword(loginInput.password);
-  //
-  //   if (!passwordCorrect) {
-  //     throw new ConflictError('Invalid password', ErrorCode.INVALID_PASSWORD);
-  //   }
-  //
-  //   const accessTokenInfo = await this.createAccessToken(user.id);
-  //   const refreshTokenInfo = await this.createRefreshToken(user.id);
-  //
-  //   return {
-  //     accessToken: accessTokenInfo.value,
-  //     refreshToken: refreshTokenInfo.value,
-  //   };
-  // }
-
   async login(userId: number): Promise<LoginOutput> {
-    const accessTokenInfo = this.createAccessToken(userId);
-    const refreshTokenInfo = await this.createRefreshToken(userId);
+    const accessTokenInfo: TokenInfo = this.createAccessToken(userId);
+    const refreshTokenInfo: TokenInfo = await this.createRefreshToken(userId);
 
     return {
       accessToken: accessTokenInfo.value,
@@ -61,7 +39,9 @@ export class AuthService {
     const payload: JwtPayload = { userId, issuer: TOKEN_ISSUER };
     const maxAgeByMs: number = this.getMaxAge(TokenType.access);
     const maxAgeBySeconds: number = maxAgeByMs / 1000;
-    // 액세스 토큰 발급
+    /**
+     * 액세스 토큰 발급
+     */
     const token: string = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_ACCESS_SECRET'),
       expiresIn: maxAgeBySeconds,
@@ -77,12 +57,16 @@ export class AuthService {
     const payload: JwtPayload = { userId, issuer: TOKEN_ISSUER };
     const maxAgeByMs: number = this.getMaxAge(TokenType.refresh);
     const maxAgeBySeconds: number = maxAgeByMs / 1000;
-    // 리프레시 토큰 발급
+    /**
+     * 리프레시 토큰 발급
+     */
     const token: string = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_REFRESH_SECRET'),
       expiresIn: maxAgeBySeconds,
     });
-    // 리프레시 토큰은 DB에 저장
+    /**
+     * 리프레시 토큰 DB에 저장
+     */
     await this.saveRefreshToken(userId, token);
     return {
       name: TokenType.refresh,
@@ -94,10 +78,10 @@ export class AuthService {
   getMaxAge(type: TokenType): number {
     switch (type) {
       case TokenType.access:
-        const oneHour = 1 * 60 * 60 * 1000;
+        const oneHour: number = 1 * 60 * 60 * 1000;
         return oneHour;
       case TokenType.refresh:
-        const oneMonth = 30 * 24 * 60 * 60 * 1000;
+        const oneMonth: number = 30 * 24 * 60 * 60 * 1000;
         return oneMonth;
     }
   }
@@ -110,7 +94,7 @@ export class AuthService {
         existUser.setRefreshToken(tokenValue);
         await userRepository.save(existUser);
       })
-      .catch((error) => {
+      .catch((error): void => {
         console.error(error);
         throw new InternalServerErrorException();
       });
@@ -146,19 +130,23 @@ export class AuthService {
     }
   }
 
-  validateTokenExpiredInMinutes = (decodedToken, minutes: number) => {
-    // token 기간 체크
+  validateTokenExpiredInMinutes = (decodedToken, minutes: number): boolean => {
+    /**
+     * token 기간 체크
+     */
     const tokenExp: Date = new Date(decodedToken['exp'] * 1000);
     const now: Date = new Date();
 
-    // 남은시간 (분)
+    /**
+     * 남은시간 (분)
+     */
     const betweenTime: number = Math.floor((tokenExp.getTime() - now.getTime()) / 1000 / 60);
 
     if (betweenTime < minutes) return true;
     return false;
   };
 
-  async validateUser(loginInput: LoginInput) {
+  async validateUser(loginInput: LoginInput): Promise<{ accessToken: string }> {
     console.log('-----------AuthService.login()------------');
 
     const result: User = await this.userRepository.findOneUser(loginInput.email);

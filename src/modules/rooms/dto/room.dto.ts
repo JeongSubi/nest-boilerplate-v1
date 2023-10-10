@@ -1,11 +1,11 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { IsInt, Min } from 'class-validator';
 import { CoreOutput } from '@common/dtos/output.dto';
-import { RoomResult } from './rooms.dto';
+import { RoomResult } from '@modules/rooms/dto/rooms.dto';
 
 @InputType()
 export class RoomInput {
-  @Field((type) => Int)
+  @Field((type: void) => Int)
   @IsInt()
   @Min(1)
   roomId: number;
@@ -13,6 +13,6 @@ export class RoomInput {
 
 @ObjectType()
 export class RoomOutput extends CoreOutput {
-  @Field((type) => RoomResult)
+  @Field((type: void) => RoomResult)
   results: RoomResult;
 }

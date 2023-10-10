@@ -5,5 +5,24 @@
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
-  }
+  },
+  "moduleNameMapper": {
+    "@src/(.*)$": "<rootDir>/../src/$1",
+    "@entities/(.*)$": "<rootDir>/../src/entities/$1",
+    "@common/(.*)$": "<rootDir>/../src/common/$1",
+    "@auth/(.*)$": "<rootDir>/../src/auth/$1",
+    "@guards/(.*)$": "<rootDir>/../src/auth/guards/$1",
+    "@args/(.*)$": "<rootDir>/../src/common/args/$1",
+    "@constants/(.*)$": "<rootDir>/../src/common/constants/$1",
+    "@decorators/(.*)$": "<rootDir>/../src/common/decorators/$1",
+    "@enums/(.*)$": "<rootDir>/../src/common/enums/$1",
+    "@error/(.*)$": "<rootDir>/../src/common/error/$1",
+    "@types/(.*)$": "<rootDir>/../src/common/types/$1",
+    "@pipe/(.*)$": "<rootDir>/../src/common/pipe/$1",
+    "@upload/(.*)$": "<rootDir>/../src/common/upload/$1",
+    "@modules/(.*)$": "<rootDir>/../src/modules/$1",
+    "@repositories/(.*)$": "<rootDir>/../src/repositories/$1",
+    "@util/(.*)$": "<rootDir>/../src/util/$1"
+  },
+  "testTimeout": 20000
 }

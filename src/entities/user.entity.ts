@@ -31,10 +31,10 @@ export class User extends CoreEntity {
   })
   refreshToken: string | null;
 
-  @OneToMany((type) => LikeRoom, (likeRoom) => likeRoom.user)
+  @OneToMany((type) => LikeRoom, (likeRoom: LikeRoom) => likeRoom.user)
   likeRoom: LikeRoom[];
 
-  @OneToMany((type) => Reservation, (reservation) => reservation.user)
+  @OneToMany((type) => Reservation, (reservation: Reservation) => reservation.user)
   reservation: Reservation[];
 
   @BeforeInsert()
@@ -52,7 +52,7 @@ export class User extends CoreEntity {
 
   async checkPassword(inputPassword: string): Promise<boolean> {
     try {
-      const ok = await bcrypt.compare(inputPassword, this.password);
+      const ok: boolean = await bcrypt.compare(inputPassword, this.password);
       return ok;
     } catch (error) {
       console.log(error);
@@ -60,7 +60,7 @@ export class User extends CoreEntity {
     }
   }
 
-  setRefreshToken(tokenValue: string | null) {
+  setRefreshToken(tokenValue: string | null): void {
     this.refreshToken = tokenValue;
   }
 }
