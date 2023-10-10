@@ -3,7 +3,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { ErrorCode } from '@common/enums/ErrorCodeEnum';
 import { UserRepository } from '@repositories/user-repository';
 import { GqlAuthGuard } from '@src/auth/guards/gql-auth.guard';
-import { AuthService } from '@src/auth/auth.service';
+import { AuthService } from '@auth/service/auth.service';
 import { JwtDecodeWithExpired } from '@common/types/auth.type';
 import { User } from '@entities/user.entity';
 
