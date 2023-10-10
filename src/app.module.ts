@@ -68,11 +68,11 @@ import { UploadModule } from '@common/upload/upload.module';
         credentials: true,
       },
       autoSchemaFile: true,
-      context: ({ request, response }) => {
+      context: ({ req, res }) => {
         return {
-          authorization: request.headers.authorization,
-          request,
-          response,
+          authorization: req.headers.authorization,
+          req,
+          res,
         };
       },
     }),

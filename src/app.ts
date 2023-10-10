@@ -26,6 +26,7 @@ function onApplicationHandler(): void {
 
 async function createServer(): Promise<void> {
   await application.listen(process.env.PORT || 8080);
+  console.log(`$$ port open ========> ${process.env.PORT || 8080}`);
 }
 
 async function initialize(): Promise<void> {

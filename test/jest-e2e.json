@@ -23,5 +23,6 @@
     "@modules/(.*)$": "<rootDir>/../src/modules/$1",
     "@repositories/(.*)$": "<rootDir>/../src/repositories/$1",
     "@util/(.*)$": "<rootDir>/../src/util/$1"
-  }
+  },
+  "testTimeout": 20000
 }

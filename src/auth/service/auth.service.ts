@@ -9,10 +9,10 @@ import { JwtService } from '@nestjs/jwt';
 import { DataSource, EntityManager } from 'typeorm';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { UserRepository } from '@repositories/user-repository';
-import { LoginInput, LoginOutput, TokenInfo } from '@src/auth/dto/login.dto';
-import { TOKEN_ISSUER } from '@common/constants/auth.constants';
-import { TokenType } from '@common/enums/auth.enums';
-import { ErrorCode } from '@common/enums/ErrorCodeEnum';
+import { LoginInput, LoginOutput, TokenInfo } from '@auth/dto/login.dto';
+import { TOKEN_ISSUER } from '@constants/auth.constants';
+import { TokenType } from '@enums/auth.enums';
+import { ErrorCode } from '@enums/ErrorCodeEnum';
 import { JwtDecodeWithExpired, JwtPayload } from '@common/types/auth.type';
 import { User } from '@entities/user.entity';
 
