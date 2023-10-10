@@ -2,7 +2,7 @@
 : NestJS Boilerplate with passport, localStrategy
 
 ## tech stack
-: NestJs, Graphql, Typescript, TypeORM, PostgreSQL, Docker, Jest
+: NestJs, Graphql, Typescript, TypeORM, PostgreSQL, jwt, Docker, Jest
 
 
 ## ERD
