@@ -70,7 +70,7 @@ import { UploadModule } from '@common/upload/upload.module';
       autoSchemaFile: true,
       context: ({ request, response }) => {
         return {
-          authorization: response.headers.authorization,
+          authorization: request.headers.authorization,
           request,
           response,
         };

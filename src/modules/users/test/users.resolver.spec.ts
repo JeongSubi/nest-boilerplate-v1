@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersResolver } from '../resolvers/users.resolver';
-import { UsersService } from '../services/users.service';
-import { CreateUserInput, CreateUserOutput } from '../dto/create-user.dto';
-import { User } from '../../../entities/user.entity';
-import { DeleteUserOutput } from '../dto/delete-user.dto';
+import { UsersResolver } from '@modules/users/resolvers/users.resolver';
+import { UsersService } from '@modules/users/services/users.service';
+import { CreateUserInput, CreateUserOutput } from '@modules/users/dto/create-user.dto';
+import { User } from '@entities/user.entity';
+import { DeleteUserOutput } from '@modules/users/dto/delete-user.dto';
 
 const signUpMockResult = {
   ok: true,

@@ -13,7 +13,7 @@ import { RoomInput, RoomOutput } from '@modules/rooms/dto/room.dto';
 export class RoomsResolver {
   constructor(private readonly roomService: RoomsService) {}
 
-  @Query((returns) => RoomsOutput)
+  @Query((returns: void) => RoomsOutput)
   async rooms(
     @Args('input')
     roomsInput: RoomsInput,
@@ -21,7 +21,7 @@ export class RoomsResolver {
     return this.roomService.getRoomList(roomsInput);
   }
 
-  @Query((returns) => RoomOutput)
+  @Query((returns: void) => RoomOutput)
   async room(
     @Args('input')
     roomInput: RoomInput,
@@ -30,7 +30,7 @@ export class RoomsResolver {
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation((returns) => LikeRoomOutput)
+  @Mutation((returns: void) => LikeRoomOutput)
   async likeRoom(
     @AuthUser() authUser: User,
     @Args('input') likeRoomInput: LikeRoomInput,

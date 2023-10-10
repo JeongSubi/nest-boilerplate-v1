@@ -15,16 +15,16 @@ export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
-  @Mutation((type) => LoginOutput)
-  async login(@Input() loginInput: LoginInput, @LoginUser() user: User) {
+  @Mutation((type: void) => LoginOutput)
+  async login(@Input() loginInput: LoginInput, @LoginUser() user: User): Promise<LoginOutput> {
     return this.authService.login(user.id);
   }
 
-  @Query((returns) => {
+  @Query((returns: void) => {
     return User;
   })
   @UseGuards(GqlJwtAuthGuard)
-  me(@AuthUser() authUser: User) {
+  me(@AuthUser() authUser: User): User {
     return authUser;
   }
 }

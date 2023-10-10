@@ -36,7 +36,6 @@ export class UsersService {
 
     if (existUser) {
       const passwordCorrect: Promise<boolean> = existUser.checkPassword(deleteUserInput.password);
-
       if (!passwordCorrect) {
         throw new UnauthorizedException('wrong password', ErrorCode.INVALID_PASSWORD);
       }

@@ -8,8 +8,10 @@ import { ErrorCode } from '@common/enums/ErrorCodeEnum';
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly userRepository: UserRepository) {
-    // usernameField 키 이름 변경 : email로 요청
-    // passwordField 키 이름 변경 : password로 요청
+    /**
+     * usernameField 키 이름 변경 : email로 요청
+     * passwordField 키 이름 변경 : password로 요청
+     */
     super({
       usernameField: 'email',
       passwordField: 'password',
@@ -17,7 +19,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(email: string, password: string): Promise<User> {
-    const user = await this.userRepository.findOneUser(email);
+    const user: User = await this.userRepository.findOneUser(email);
     if (!user) {
       throw new NotFoundException('user not found', ErrorCode.USER_NOT_FOUND);
     }

@@ -17,7 +17,7 @@ export class LikeRoom extends CoreEntity {
     this.room = room;
   }
 
-  static getInstance(user: User, room: Room) {
+  static getInstance(user: User, room: Room): LikeRoom {
     return new LikeRoom(user, room);
   }
 }

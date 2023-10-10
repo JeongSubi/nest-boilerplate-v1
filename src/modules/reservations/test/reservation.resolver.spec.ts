@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ReservationsResolver } from '../resolvers/reservations.resolver';
-import { ReservationsService } from '../services/reservations.service';
-import { CreateReservationOutput } from '../dto/create-reservation.dto';
-import { User } from '../../../entities/user.entity';
+import { ReservationsResolver } from '@modules/reservations/resolvers/reservations.resolver';
+import { ReservationsService } from '@modules/reservations/services/reservations.service';
+import { CreateReservationOutput } from '@modules/reservations/dto/create-reservation.dto';
+import { User } from '@entities/user.entity';
 
 const reservationMockResult = {
   ok: true,

@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RoomsService } from '../services/rooms.service';
-import { RoomsResolver } from '../resolvers/rooms.resolver';
-import { RoomsOutput } from '../dto/rooms.dto';
-import { RoomOutput } from '../dto/room.dto';
-import { LikeRoomOutput } from '../dto/like-room.dto';
-import { User } from '../../../entities/user.entity';
+import { LikeRoomOutput } from '@modules/rooms/dto/like-room.dto';
+import { User } from '@entities/user.entity';
+import { RoomOutput } from '@modules/rooms/dto/room.dto';
+import { RoomsResolver } from '@modules/rooms/resolvers/rooms.resolver';
+import { RoomsService } from '@modules/rooms/services/rooms.service';
+import { RoomsOutput } from '@modules/rooms/dto/rooms.dto';
 
 const roomMockResult = {
   ok: true,

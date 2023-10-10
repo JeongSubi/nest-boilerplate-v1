@@ -7,7 +7,7 @@ import { Room, RoomType } from '@entities/room.entity';
 
 @InputType()
 export class RoomsInput extends BasicPaginationInput {
-  @Field((type) => String, { nullable: true })
+  @Field((type: void) => String, { nullable: true })
   @IsString()
   @IsOptional()
   roomName?: string;
@@ -15,28 +15,28 @@ export class RoomsInput extends BasicPaginationInput {
 
 @ObjectType()
 export class RoomResult {
-  @Field((type) => Int)
+  @Field((type: void) => Int)
   id: number;
 
-  @Field((type) => String)
+  @Field((type: void) => String)
   roomName: string;
 
-  @Field((type) => Int)
+  @Field((type: void) => Int)
   price: number;
 
-  @Field((type) => String)
+  @Field((type: void) => String)
   coverImg: string;
 
-  @Field((type) => String)
+  @Field((type: void) => String)
   streetAddress: string;
 
-  @Field((type) => String)
+  @Field((type: void) => String)
   detailAddress: string;
 
-  @Field((type) => String)
+  @Field((type: void) => String)
   zipCode: string;
 
-  @Field((type) => RoomType)
+  @Field((type: void) => RoomType)
   roomType: RoomType;
 
   static toDto(room: Room): RoomResult {
@@ -55,19 +55,21 @@ export class RoomResult {
 
 @ObjectType()
 export class RoomResultWithHasNext {
-  @Field((type) => [RoomResult])
+  @Field((type: void) => [RoomResult])
   rooms: RoomResult[];
 
-  @Field((type) => Boolean)
+  @Field((type: void) => Boolean)
   hasNext: boolean;
 
-  @Field((type) => Int)
+  @Field((type: void) => Int)
   totalCount: number;
 
   static toDto(rooms: Room[], inputPage: number, totalCount: number): RoomResultWithHasNext {
-    const results = rooms.map((el) => RoomResult.toDto(el));
+    const results: RoomResult[] = rooms.map((el: Room) => RoomResult.toDto(el));
 
-    const pageCount = Math.ceil(totalCount / (rooms.length === 0 ? totalCount : rooms.length));
+    const pageCount: number = Math.ceil(
+      totalCount / (rooms.length === 0 ? totalCount : rooms.length),
+    );
 
     return Builder(RoomResultWithHasNext)
       .rooms(results)
@@ -79,6 +81,6 @@ export class RoomResultWithHasNext {
 
 @ObjectType()
 export class RoomsOutput extends CoreOutput {
-  @Field((type) => RoomResultWithHasNext)
+  @Field((type: void) => RoomResultWithHasNext)
   results?: RoomResultWithHasNext;
 }
