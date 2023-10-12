@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersResolver } from '@modules/users/resolvers/users.resolver';
-import { UsersService } from '@modules/users/services/users.service';
+import { UsersResolver } from '@modules/users/users.resolver';
+import { UsersService } from '@modules/users/users.service';
 import { CreateUserInput, CreateUserOutput } from '@modules/users/dto/create-user.dto';
 import { User } from '@entities/user.entity';
 import { DeleteUserOutput } from '@modules/users/dto/delete-user.dto';

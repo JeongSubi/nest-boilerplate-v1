@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { LikeRoomOutput } from '@modules/rooms/dto/like-room.dto';
 import { User } from '@entities/user.entity';
 import { RoomOutput } from '@modules/rooms/dto/room.dto';
-import { RoomsResolver } from '@modules/rooms/resolvers/rooms.resolver';
-import { RoomsService } from '@modules/rooms/services/rooms.service';
+import { RoomsResolver } from '@modules/rooms/rooms.resolver';
+import { RoomsService } from '@modules/rooms/rooms.service';
 import { RoomsOutput } from '@modules/rooms/dto/rooms.dto';
 
 const roomMockResult = {

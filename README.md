@@ -2,7 +2,7 @@
 : NestJS Boilerplate with passport, localStrategy
 
 ## tech stack
-: NestJs, Graphql, Typescript, TypeORM, PostgreSQL, Docker, Jest
+: NestJs, Graphql, Typescript, TypeORM, PostgreSQL, jwt, Docker, Jest
 
 
 ## ERD
@@ -39,7 +39,7 @@ $ docker compose -f ./docker/docker-compose-localhost.yml up -d (localhost envir
 $ npm start:dev
 ```
 
-## Test Coverage 
+## Test Code 
 
 ```
 UNIT TEST

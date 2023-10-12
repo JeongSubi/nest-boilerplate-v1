@@ -5,8 +5,8 @@ import { RoomRepository } from '@repositories/room-repository';
 import { ReservationRepository } from '@repositories/reservation-repository';
 import { Reservation } from '@entities/reservation.entity';
 import { UtilModule } from '@src/util/util.module';
-import { ReservationsResolver } from '@modules/reservations/resolvers/reservations.resolver';
-import { ReservationsService } from '@modules/reservations/services/reservations.service';
+import { ReservationsResolver } from '@modules/reservations/reservations.resolver';
+import { ReservationsService } from '@modules/reservations/reservations.service';
 
 @Module({
   imports: [
