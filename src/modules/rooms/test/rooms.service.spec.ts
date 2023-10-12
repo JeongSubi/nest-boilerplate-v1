@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { RoomRepository } from '@repositories/room-repository';
 import { UserRepository } from '@repositories/user-repository';
 import { LikeRoomRepository } from '@repositories/like-room-repository';
-import { RoomsService } from '@modules/rooms/services/rooms.service';
+import { RoomsService } from '@modules/rooms/rooms.service';
 
 const mockRepository = () => ({});
 

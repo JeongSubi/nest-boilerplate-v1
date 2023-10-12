@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { RoomRepository } from '@repositories/room-repository';
-import { ConflictError } from '@common/error/ConflictError';
-import { ErrorCode } from '@common/enums/ErrorCodeEnum';
+import { ConflictError } from '@error/ConflictError';
+import { ErrorCode } from '@enums/ErrorCodeEnum';
 import { UserRepository } from '@repositories/user-repository';
 import { LikeRoomRepository } from '@repositories/like-room-repository';
-import { NotFoundError } from '@common/error/NotFoundError';
+import { NotFoundError } from '@error/NotFoundError';
 import { LikeRoom } from '@entities/like-room.entity';
 import {
   RoomResult,
