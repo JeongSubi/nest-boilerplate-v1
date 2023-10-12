@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { UnauthorizedException } from '@nestjs/common';
 import { UserRepository } from '@repositories/user-repository';
-import { UsersService } from '@modules/users/services/users.service';
+import { UsersService } from '@modules/users/users.service';
 import { CreateUserInput } from '@modules/users/dto/create-user.dto';
 import { ConflictError } from '@error/ConflictError';
 import { ErrorCode } from '@enums/ErrorCodeEnum';

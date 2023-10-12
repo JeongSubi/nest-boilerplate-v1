@@ -1,10 +1,10 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { Room } from '@entities/room.entity';
-import { AuthUser } from '@common/decorators/auth-user.decorator';
+import { AuthUser } from '@decorators/auth-user.decorator';
 import { User } from '@entities/user.entity';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '@src/auth/guards/gql-auth.guard';
-import { RoomsService } from '@modules/rooms/services/rooms.service';
+import { GqlAuthGuard } from '@guards/gql-auth.guard';
+import { RoomsService } from '@modules/rooms/rooms.service';
 import { RoomsInput, RoomsOutput } from '@modules/rooms/dto/rooms.dto';
 import { LikeRoomInput, LikeRoomOutput } from '@modules/rooms/dto/like-room.dto';
 import { RoomInput, RoomOutput } from '@modules/rooms/dto/room.dto';

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { RoomsService } from './services/rooms.service';
-import { RoomsResolver } from './resolvers/rooms.resolver';
+import { RoomsService } from './rooms.service';
+import { RoomsResolver } from './rooms.resolver';
 import { CustomTypeOrmModule } from '@common/custom.typeorm.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoomRepository } from '@repositories/room-repository';

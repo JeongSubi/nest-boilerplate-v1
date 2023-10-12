@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ReservationsResolver } from '@modules/reservations/resolvers/reservations.resolver';
-import { ReservationsService } from '@modules/reservations/services/reservations.service';
+import { ReservationsResolver } from '@modules/reservations/reservations.resolver';
+import { ReservationsService } from '@modules/reservations/reservations.service';
 import { CreateReservationOutput } from '@modules/reservations/dto/create-reservation.dto';
 import { User } from '@entities/user.entity';
 
