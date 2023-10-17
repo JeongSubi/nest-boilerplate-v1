@@ -21,7 +21,7 @@ import { UploadModule } from '@common/upload/upload.module';
         process.env.NODE_ENV === 'dev'
           ? '.env.dev'
           : process.env.NODE_ENV === 'test'
-          ? '.env.test'
+          ? '.env.__test__'
           : '.env.prod',
       ignoreEnvFile: process.env.NODE_ENV === 'prod',
       validationSchema: Joi.object({
